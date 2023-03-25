@@ -1,115 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.example.arec.Register">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/register"
-        android:layout_width="293dp"
-        android:layout_height="51dp"
-        android:fontFamily="@font/Roboto"
-        android:gravity="center"
-        android:text="@string/register"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.419" />
+        <TextView
+            android:id="@+id/register_title"
+            android:layout_width="293dp"
+            android:layout_height="51dp"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:text="@string/register"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.419" />
 
-    <EditText
-        android:id="@+id/email"
-        android:layout_width="325dp"
-        android:layout_height="45dp"
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="325dp"
+            android:layout_height="45dp"
 
-        android:autofillHints="Pass"
-        android:background="@drawable/edit_text_bg"
-
-
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
-        android:paddingLeft="20sp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="16sp"
+            android:autofillHints="Pass"
+            android:background="@drawable/edit_text_bg"
 
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.709" />
-
-    <EditText
-        android:id="@+id/nome"
-        android:layout_width="325dp"
-        android:layout_height="45dp"
-
-        android:autofillHints="Nome"
-        android:background="@drawable/edit_text_bg"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:paddingLeft="20sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="16sp"
 
 
-        android:hint="@string/nome"
-        android:inputType="text"
-        android:paddingLeft="20sp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.453"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.709" />
+
+        <EditText
+            android:id="@+id/nome"
+            android:layout_width="325dp"
+            android:layout_height="45dp"
+
+            android:autofillHints="Nome"
+            android:background="@drawable/edit_text_bg"
 
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.488"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.625" />
-
-    <EditText
-        android:id="@+id/Password"
-        android:layout_width="325dp"
-        android:layout_height="45dp"
-
-        android:autofillHints="Password"
-        android:background="@drawable/edit_text_bg"
+            android:hint="@string/nome"
+            android:inputType="text"
+            android:paddingLeft="20sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="16sp"
 
 
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:paddingLeft="20sp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.488"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.625" />
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.453"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.797" />
+        <EditText
+            android:id="@+id/Password"
+            android:layout_width="325dp"
+            android:layout_height="45dp"
 
-    <Button
-        android:id="@+id/but_register"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:background="@drawable/button_bg"
-        android:text="@string/register"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBaseline_toBottomOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Password"
-        app:backgroundTint="@null"
-        app:layout_constraintWidth_percent=".8" />
+            android:autofillHints="Password"
+            android:background="@drawable/edit_text_bg"
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingLeft="20sp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="16sp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.453"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.797" />
+
+        <Button
+            android:id="@+id/but_register"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/button_bg"
+            android:text="@string/register"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBaseline_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.512"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Password"
+            app:backgroundTint="@null"
+            app:layout_constraintWidth_percent=".8" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

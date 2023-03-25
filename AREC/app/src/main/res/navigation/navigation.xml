@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/login">
+
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.arec.Login"
+        android:label="login"
+        tools:layout="@layout/login" >
+        <action
+            android:id="@+id/action_login_to_register"
+            app:destination="@id/register" />
+    </fragment>
+    <fragment
+        android:id="@+id/register"
+        android:name="com.example.arec.Register"
+        android:label="register"
+        tools:layout="@layout/register" />
+</navigation>
