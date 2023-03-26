@@ -23,5 +23,5 @@
     <string name="login_to_register">Don\'t have an account? Register now</string>
     <string name="AutorizeToContinue">Você precisa permitir a localização para usar a applicação.</string>
     <string name="Activate">Ativar Localização</string>
-
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
