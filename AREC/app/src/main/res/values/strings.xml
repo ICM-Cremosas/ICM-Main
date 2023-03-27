@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AREC</string>
+    <string name="app_name">Cremosa</string>
     <string name="email">Email</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
@@ -24,4 +24,15 @@
     <string name="AutorizeToContinue">Você precisa permitir a localização para usar a applicação.</string>
     <string name="Activate">Ativar Localização</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="edit_profile_title">Edit Profile</string>
+    <string name="name_label">Your Name</string>
+    <string name="name_edit">Name you want to show</string>
+    <string name="age_label">Your Age</string>
+    <string name="age_preference_label">Age Group</string>
+    <string name="gender">My Sex</string>
+    <string name="sexualorientation">Show me</string>
+    <string name="description_label">Description</string>
+    <string name="right_about_you">Right about you</string>
+    <string name="but_ave">Save</string>
+    <string name="delete_account">Delete Account</string>
 </resources>

@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.arec.databinding.AskLocBinding
 
 class AskLoc : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<AskLocBinding>(inflater, R.layout.ask_loc,container,false)
+        binding.butAskloc.setOnClickListener { view : View ->
+            view.findNavController().navigate(R.id.action_askLoc_to_mapsActivity) }
         return binding.root
     }
 

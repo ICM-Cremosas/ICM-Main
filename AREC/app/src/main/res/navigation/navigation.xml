@@ -13,10 +13,48 @@
         <action
             android:id="@+id/action_login_to_register"
             app:destination="@id/register" />
+        <action
+            android:id="@+id/action_login_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
     </fragment>
     <fragment
         android:id="@+id/register"
         android:name="com.example.arec.Register"
         android:label="register"
-        tools:layout="@layout/register" />
+        tools:layout="@layout/register" >
+        <action
+            android:id="@+id/action_register_to_editProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.example.arec.EditProfile"
+        android:label="EditProfile" >
+        <action
+            android:id="@+id/action_editProfile_to_askLoc"
+            app:destination="@id/askLoc" />
+    </fragment>
+    <fragment
+        android:id="@+id/askLoc"
+        android:name="com.example.arec.AskLoc"
+        android:label="ask_loc"
+        tools:layout="@layout/ask_loc" >
+        <action
+            android:id="@+id/action_askLoc_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapsActivity"
+        android:name="com.example.arec.MapsActivity"
+        android:label="activity_maps"
+        tools:layout="@layout/activity_maps" >
+        <action
+            android:id="@+id/action_mapsActivity_to_eventDescription"
+            app:destination="@id/eventDescription" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventDescription"
+        android:name="com.example.arec.EventDescription"
+        android:label="event_decription"
+        tools:layout="@layout/event_decription" />
 </navigation>

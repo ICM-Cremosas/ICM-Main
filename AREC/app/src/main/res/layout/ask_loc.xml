@@ -7,26 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <Button
-            android:id="@+id/but_login"
-            android:layout_width="303dp"
-            android:layout_height="58dp"
-            android:layout_marginBottom="60dp"
-            android:background="@drawable/button_bg"
-            android:text="@string/ativar_localiza_o"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:backgroundTint="@null"
-            app:layout_constraintBaseline_toBottomOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_percent=".8" />
-
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/logoaskloc"
             android:layout_width="178dp"
             android:layout_height="278dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +20,7 @@
             app:srcCompat="@drawable/_812734" />
 
         <TextView
-            android:id="@+id/titulo"
+            android:id="@+id/askloc_title"
             android:layout_width="412dp"
             android:layout_height="101dp"
             android:fontFamily="@font/giloroy"
@@ -69,6 +51,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.652" />
+
+        <Button
+            android:id="@+id/but_askloc"
+            android:layout_width="303dp"
+            android:layout_height="58dp"
+            android:layout_marginBottom="60dp"
+            android:background="@drawable/button_bg"
+            android:text="@string/ativar_localiza_o"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:backgroundTint="@null"
+            app:layout_constraintBaseline_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent=".8" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

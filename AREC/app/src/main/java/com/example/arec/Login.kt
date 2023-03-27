@@ -13,6 +13,9 @@ class Login : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<LoginBinding>(inflater, R.layout.login,container,false)
 
+        binding.butLogin.setOnClickListener { view : View ->
+            view.findNavController().navigate(R.id.action_login_to_mapsActivity) }
+
         binding.textDontHaveAccount.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_login_to_register) }
 
