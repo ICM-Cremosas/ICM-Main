@@ -1,9 +1,7 @@
 package com.example.arec
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -16,7 +14,8 @@ class Register : Fragment() {
 
         binding.butRegister.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_register_to_editProfile) }
-
         return binding.root
     }
+
+
 }

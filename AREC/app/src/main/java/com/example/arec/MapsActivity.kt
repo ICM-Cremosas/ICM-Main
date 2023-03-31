@@ -47,6 +47,9 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<ActivityMapsBinding>(inflater, R.layout.activity_maps,container,false)
 
+        binding.butAddEvent.setOnClickListener { view : View ->
+            view.findNavController().navigate(R.id.action_mapsActivity_to_createEvent) }
+
         return binding.root
     }
 

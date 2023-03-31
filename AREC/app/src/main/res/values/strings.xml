@@ -17,7 +17,7 @@
     <string name="event_title">Title</string>
     <string name="event_duration_out">Event Duration</string>
     <string name="event_radius_out">Event Radius</string>
-    <string name="event_participants_out">Max Capacity Event</string>
+    <string name="event_participants_out">Number of Participants on Event</string>
     <string name="create">Create</string>
     <string name="join">Join</string>
     <string name="login_to_register">Don\'t have an account? Register now</string>
@@ -35,4 +35,8 @@
     <string name="right_about_you">Right about you</string>
     <string name="but_ave">Save</string>
     <string name="delete_account">Delete Account</string>
+    <string name="profile_your_name">Your Name</string>
+    <string name="profile_your_age">Your Age</string>
+    <string name="profile_but_edit">Edit</string>
+    <string name="imagens_de_profile">Imagens de profile</string>
 </resources>
