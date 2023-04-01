@@ -13,7 +13,7 @@ class Register : Fragment() {
         val binding = DataBindingUtil.inflate<RegisterBinding>(inflater, R.layout.register,container,false)
 
         binding.butRegister.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_register_to_editProfile) }
+            view.findNavController().navigate(R.id.action_register_to_editProfileOnRegister) }
         return binding.root
     }
 

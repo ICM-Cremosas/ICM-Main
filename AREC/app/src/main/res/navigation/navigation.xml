@@ -23,16 +23,8 @@
         android:label="register"
         tools:layout="@layout/register" >
         <action
-            android:id="@+id/action_register_to_editProfile"
-            app:destination="@id/editProfile" />
-    </fragment>
-    <fragment
-        android:id="@+id/editProfile"
-        android:name="com.example.arec.EditProfile"
-        android:label="EditProfile" >
-        <action
-            android:id="@+id/action_editProfile_to_askLoc"
-            app:destination="@id/askLoc" />
+            android:id="@+id/action_register_to_editProfileOnRegister"
+            app:destination="@id/editProfileOnRegister" />
     </fragment>
     <fragment
         android:id="@+id/askLoc"
@@ -65,4 +57,35 @@
         android:name="com.example.arec.CreateEvent"
         android:label="create_event"
         tools:layout="@layout/create_event" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.arec.Profile"
+        android:label="Profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.arec.Chat"
+        android:label="activity_chat"
+        tools:layout="@layout/activity_chat" />
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.example.arec.EditProfile"
+        android:label="edit_profile"
+        tools:layout="@layout/edit_profile" >
+        <action
+            android:id="@+id/action_editProfile_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileOnRegister"
+        android:name="com.example.arec.EditProfileOnRegister"
+        android:label="edit_profile_on_register"
+        tools:layout="@layout/edit_profile_on_register" >
+        <action
+            android:id="@+id/action_editProfileOnRegister_to_askLoc"
+            app:destination="@id/askLoc" />
+    </fragment>
 </navigation>

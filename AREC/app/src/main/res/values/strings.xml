@@ -39,4 +39,8 @@
     <string name="profile_your_age">Your Age</string>
     <string name="profile_but_edit">Edit</string>
     <string name="imagens_de_profile">Imagens de profile</string>
+    <string name="search">search</string>
+    <string name="menu_map">map</string>
+    <string name="menu_chat">chat</string>
+    <string name="menu_profile">profile</string>
 </resources>
