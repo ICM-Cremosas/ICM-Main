@@ -2,6 +2,7 @@ package com.example.arec
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -12,8 +13,11 @@ class Register : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<RegisterBinding>(inflater, R.layout.register,container,false)
 
+        // hide the action bar
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+
         binding.butRegister.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_register_to_editProfileOnRegister) }
+            view.findNavController().navigate(R.id.action_register_to_askLoc) }
         return binding.root
     }
 

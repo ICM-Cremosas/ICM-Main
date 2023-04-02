@@ -14,8 +14,8 @@
             android:id="@+id/action_login_to_register"
             app:destination="@id/register" />
         <action
-            android:id="@+id/action_login_to_mapsActivity"
-            app:destination="@id/mapsActivity" />
+            android:id="@+id/action_login_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
         android:id="@+id/register"
@@ -23,8 +23,8 @@
         android:label="register"
         tools:layout="@layout/register" >
         <action
-            android:id="@+id/action_register_to_editProfileOnRegister"
-            app:destination="@id/editProfileOnRegister" />
+            android:id="@+id/action_register_to_askLoc"
+            app:destination="@id/askLoc" />
     </fragment>
     <fragment
         android:id="@+id/askLoc"
@@ -32,31 +32,42 @@
         android:label="ask_loc"
         tools:layout="@layout/ask_loc" >
         <action
-            android:id="@+id/action_askLoc_to_mapsActivity"
-            app:destination="@id/mapsActivity" />
+            android:id="@+id/action_askLoc_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mapsActivity"
+        android:id="@+id/mapsFragment"
         android:name="com.example.arec.MapsActivity"
         android:label="activity_maps"
         tools:layout="@layout/activity_maps" >
         <action
-            android:id="@+id/action_mapsActivity_to_eventDescription"
+            android:id="@+id/action_mapsFragment_to_eventDescription"
             app:destination="@id/eventDescription" />
         <action
-            android:id="@+id/action_mapsActivity_to_createEvent"
+            android:id="@+id/action_mapsFragment_to_createEvent"
             app:destination="@id/createEvent" />
     </fragment>
     <fragment
         android:id="@+id/eventDescription"
         android:name="com.example.arec.EventDescription"
         android:label="event_decription"
-        tools:layout="@layout/event_decription" />
+        tools:layout="@layout/event_decription" >
+        <action
+            android:id="@+id/action_eventDescription_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_eventDescription_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createEvent"
         android:name="com.example.arec.CreateEvent"
         android:label="create_event"
-        tools:layout="@layout/create_event" />
+        tools:layout="@layout/create_event" >
+        <action
+            android:id="@+id/action_createEvent_to_mapsFragment"
+            app:destination="@id/mapsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.arec.Profile"
@@ -78,14 +89,5 @@
         <action
             android:id="@+id/action_editProfile_to_profileFragment"
             app:destination="@id/profileFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/editProfileOnRegister"
-        android:name="com.example.arec.EditProfileOnRegister"
-        android:label="edit_profile_on_register"
-        tools:layout="@layout/edit_profile_on_register" >
-        <action
-            android:id="@+id/action_editProfileOnRegister_to_askLoc"
-            app:destination="@id/askLoc" />
     </fragment>
 </navigation>

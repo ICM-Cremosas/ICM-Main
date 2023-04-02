@@ -7,28 +7,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/Password"
-            android:layout_width="334dp"
-            android:layout_height="48dp"
 
-            android:autofillHints="Password"
-            android:background="@drawable/edit_text_bg"
-
-
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:textSize="16sp"
-            android:paddingLeft="20sp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.543"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.748" />
 
         <TextView
             android:id="@+id/login_title"
@@ -58,7 +37,8 @@
             android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:paddingTop="10dp"
-            android:paddingLeft="20sp"
+            android:paddingStart="20sp"
+            android:paddingEnd="20sp"
             android:paddingBottom="10dp"
             android:textSize="16sp"
 
@@ -68,6 +48,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.645" />
+
+        <EditText
+            android:id="@+id/Password"
+            android:layout_width="334dp"
+            android:layout_height="48dp"
+
+            android:autofillHints="Password"
+            android:background="@drawable/edit_text_bg"
+
+
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:textSize="16sp"
+            android:paddingLeft="20sp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.543"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.748" />
 
         <Button
             android:id="@+id/but_login"

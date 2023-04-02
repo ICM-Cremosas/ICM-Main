@@ -12,14 +12,12 @@ class Event(
     private var duration: Double,           //duration of the event
     private var totalParticipants: Int){    // Participants that the event can accept
 
-    private val lat: Double = this.latlng.latitude
-    private val long: Double = this.latlng.latitude
     private val participants = mutableSetOf<Int>()        //Participants on event real Time
 
     //toString
     override fun toString(): String {
         return "Event(ID=$ID, eventOwner=$eventOwner, radius=$radius, " +
-                "lat=$lat, long=$long, duration=$duration, " +
+                "lat=${getLatitude()}, long=${getLongitude()}, latlng=${getLatLng()},  duration=$duration, " +
                 "totalParticipants=$totalParticipants, " +
                 "participants=$participants)\n"
     }
@@ -43,11 +41,15 @@ class Event(
     }
 
     fun getLatitude(): Double {
-        return this.lat
+        return this.latlng.latitude
     }
 
     fun getLongitude(): Double {
-        return this.long
+        return this.latlng.longitude
+    }
+
+    fun getLatLng(): LatLng {
+        return this.latlng
     }
 
     fun getDuration(): Double {

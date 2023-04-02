@@ -26,7 +26,7 @@
     <string name="title_activity_maps">MapsActivity</string>
     <string name="edit_profile_title">Edit Profile</string>
     <string name="name_label">Your Name</string>
-    <string name="name_edit">Name you want to show</string>
+    <string name="name_edit">Name</string>
     <string name="age_label">Your Age</string>
     <string name="age_preference_label">Age Group</string>
     <string name="gender">My Sex</string>
@@ -43,4 +43,5 @@
     <string name="menu_map">map</string>
     <string name="menu_chat">chat</string>
     <string name="menu_profile">profile</string>
+    <string name="repeatpassword">Repeat Password</string>
 </resources>

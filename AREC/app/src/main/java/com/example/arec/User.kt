@@ -10,10 +10,8 @@ class User(
     private var gender: String,
     private var sexualOrientation : String,
     private var bio: String,
-    private val latlng: LatLng){
+    private var latlng: LatLng){
 
-    private var lat: Double = this.latlng.latitude
-    private var long: Double = this.latlng.latitude
     private val events = mutableSetOf<Int>()
     private val connections = mutableSetOf<Int>()
 
@@ -21,7 +19,7 @@ class User(
     override fun toString(): String {
         return "User(ID=$ID, name='$name', age=$age, gender='$gender', " +
                 "sexualOrientation='$sexualOrientation', bio='$bio', " +
-                "lat=$lat, long=$long, Events=${events}, connections=$connections)\n"
+                "lat=${getLatitude()}, long=${getLongitude()}, ,Events=${events}, connections=$connections)\n"
     }
 
     // Getter methods
@@ -50,11 +48,15 @@ class User(
     }
 
     fun getLatitude(): Double {
-        return this.lat
+        return this.latlng.latitude
     }
 
     fun getLongitude(): Double {
-        return this.long
+        return this.latlng.longitude
+    }
+
+    fun getLatLng(): LatLng {
+        return this.latlng
     }
 
     // Setter methods
@@ -78,12 +80,8 @@ class User(
         this.bio = bio
     }
 
-    fun setLatitude(latitude: Double) {
-        this.lat = latitude
-    }
-
-    fun setLongitude(longitude: Double) {
-        this.long = longitude
+    fun setLatLng(latLng: LatLng) {
+        this.latlng = latlng
     }
 
     // Events methods
