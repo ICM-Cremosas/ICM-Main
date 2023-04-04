@@ -44,4 +44,7 @@
     <string name="menu_chat">chat</string>
     <string name="menu_profile">profile</string>
     <string name="repeatpassword">Repeat Password</string>
+    <string name="we_will_send_you_an">We will send you an</string>
+    <string name="get_solution">Ask your any question for Expert and get olution for your problem</string>
+
 </resources>

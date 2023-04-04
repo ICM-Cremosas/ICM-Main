@@ -22,7 +22,7 @@ class EventDescription : Fragment() {
             if(data){
                 binding.butJoin.setOnClickListener { view : View ->
                     val bundleDescriptionProfile = Bundle()
-                    bundleDescriptionProfile.putString("source", "description")
+                    bundleDescriptionProfile.putString("source", "joinedEvent")
                     view.findNavController().navigate(R.id.action_eventDescription_to_profileFragment, bundleDescriptionProfile) }
             }
             else{

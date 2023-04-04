@@ -15,6 +15,7 @@ class Profile : Fragment() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var binding: ProfileBinding
+    private var joinedEvent: Boolean = false
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<ProfileBinding>(inflater, R.layout.profile,container,false)
 
@@ -22,11 +23,13 @@ class Profile : Fragment() {
             view.findNavController().navigate(R.id.action_profileFragment_to_editProfile) }
 
         val source = arguments?.getString("source")
-        if (source == "description") {
+        if (source == "joinedEvent") {
             binding.butEdit.setVisibility(View.GONE)
+            joinedEvent = true
         } else{
             binding.butDislike.setVisibility(View.GONE)
             binding.butLike.setVisibility(View.GONE)
+            joinedEvent = false
         }
 
 
@@ -43,6 +46,17 @@ class Profile : Fragment() {
         val images = listOf(R.drawable.ic_add, R.drawable.ic_info, R.drawable.ic_person)
         val adapter = ImagePagerAdapter(images, requireContext())
         viewPager.adapter = adapter
+
+        if(joinedEvent){
+            binding.butLike.setOnClickListener {
+                val images1 = listOf(R.drawable.ic_chat, R.drawable.ic_info, R.drawable.ic_person)
+                val adapter1 = ImagePagerAdapter(images1, requireContext())
+                viewPager.adapter = adapter1}
+            binding.butDislike.setOnClickListener {
+                val images2 = listOf(R.drawable.ic_map, R.drawable.ic_info, R.drawable.ic_person)
+                val adapter2 = ImagePagerAdapter(images2, requireContext())
+                viewPager.adapter = adapter2}
+        }
 
 
     }

@@ -127,7 +127,7 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
                     override fun onLocationChanged(location: Location) {
 
                         // Update the marker position User from the location of the callback
-                        latLngUser = LatLng(location.latitude, location.longitude)
+                        latLngUser = LatLng(location.latitude + 0.001, location.longitude + 0.001)
 
                         //clear preivious markers
                         //userMaker?.remove()
@@ -139,7 +139,7 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
 
                         createEventMarker(event)
 
-                        Log.e("MyLogs", "$event" + "$user")
+                        //Log.e("MyLogs", "$event" + "$user")
                     }
 
                     //perceber melhor para que que isto serve

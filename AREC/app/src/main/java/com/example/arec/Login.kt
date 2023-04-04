@@ -18,7 +18,7 @@ class Login : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         binding.butLogin.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_login_to_mapsFragment) }
+            view.findNavController().navigate(R.id.action_login_to_verificationActivity) }
 
         binding.textDontHaveAccount.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_login_to_register) }
