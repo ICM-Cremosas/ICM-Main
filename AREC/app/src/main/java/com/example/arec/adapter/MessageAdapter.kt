@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase
 class MessageAdapter(
     var context:Context,
     messages: ArrayList<Message>?,
-    sendRoom: String,
+    senderRoom: String,
     receiverRoom: String
 ):RecyclerView.Adapter<RecyclerView.ViewHolder?>()
 {

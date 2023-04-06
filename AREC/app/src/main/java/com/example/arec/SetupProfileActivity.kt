@@ -60,17 +60,14 @@ class SetupProfileActivity : Fragment() {
             dialog!!.show()
             if(selectedImage != null) {
                 val reference = storage!!.reference.child("Profile").child(auth!!.uid!!)
-                Log.e("noob", "00000")
                 reference.putFile(selectedImage!!).addOnCompleteListener { task ->
-                    Log.e("noob", "1111")
                     if(task.isSuccessful) {
-                        Log.e("noob", "2222")
                         reference.downloadUrl.addOnCompleteListener { uri ->
-                            Log.e("noob", "3333333")
-                            val imageUrl = uri.toString()
+                            val imageUrl = uri.result.toString()
                             val uid = auth!!.uid
                             val phone = auth!!.currentUser!!.phoneNumber
                             val name: String = binding!!.nameBox.text.toString()
+                            Log.i("noob", imageUrl)
                             val user = User(uid, name, phone, imageUrl)
                             database!!.reference
                                 .child("users")
@@ -83,7 +80,6 @@ class SetupProfileActivity : Fragment() {
                         }
                     }
                     else {
-                        Log.e("noob", "4444444")
                         val uid = auth!!.uid
                         val phone = auth!!.currentUser!!.phoneNumber
                         val name: String = binding!!.nameBox.text.toString()

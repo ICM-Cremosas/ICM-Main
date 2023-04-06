@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +48,7 @@ class ChatActivity : Fragment() {
     var receiverUid: String? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<ActivityChatBinding>(inflater, R.layout.activity_chat,container,false)
+        binding = DataBindingUtil.inflate<ActivityChatBinding>(inflater, R.layout.activity_chat,container,false)
         //tirei isto n sei se faz dif tava a dar erro
         //(requireActivity() as AppCompatActivity).setSupportActionBar(binding!!.toolbar)
         database = FirebaseDatabase.getInstance()
@@ -81,7 +82,6 @@ class ChatActivity : Fragment() {
                             } else {
                                 binding!!.status.setText(status)
                                 binding!!.status.visibility = View.VISIBLE
-
                             }
                         }
                     }
@@ -107,7 +107,7 @@ class ChatActivity : Fragment() {
                             val message: Message? = snapshot1.getValue(Message::class.java)
                             message!!.messageId = snapshot1.key
                             messages!!.add(message)
-
+                            Log.d("noob1", message.toString())
                         }
                         adapter!!.notifyDataSetChanged()
                     }
@@ -172,9 +172,7 @@ class ChatActivity : Fragment() {
                 }
 
             })
-            (requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(
-                false
-            )
+            //(requireActivity() as AppCompatActivity).supportActionBar?.setDisplayShowTitleEnabled(false)
         }
         return binding.root
     }

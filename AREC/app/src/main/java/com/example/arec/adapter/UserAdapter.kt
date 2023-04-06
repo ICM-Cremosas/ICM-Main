@@ -3,6 +3,7 @@ package com.example.arec.adapter
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.example.arec.R
 import com.example.arec.databinding.ItemProfileBinding
 import com.example.arec.model.User
 import androidx.navigation.fragment.findNavController
+import com.squareup.picasso.Picasso
 
 class UserAdapter(var context:Context,
                   var userList:ArrayList<User>,
@@ -39,14 +41,11 @@ class UserAdapter(var context:Context,
             .placeholder(R.drawable.avatar)
             .into(holder.binding.profile)
         holder.itemView.setOnClickListener {
-
-
             val bundleUserChat = Bundle()
             bundleUserChat.putString("name", user.name)
             bundleUserChat.putString("image", user.profileImage)
             bundleUserChat.putString("uid", user.uid)
             navController.navigate(R.id.action_usersActivity_to_chatActivity, bundleUserChat)
-
         }
     }
 }
