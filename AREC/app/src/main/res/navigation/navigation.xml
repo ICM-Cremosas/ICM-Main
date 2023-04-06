@@ -92,11 +92,6 @@
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
-        android:id="@+id/chatFragment"
-        android:name="com.example.arec.Chat"
-        android:label="activity_chat"
-        tools:layout="@layout/activity_chat" />
-    <fragment
         android:id="@+id/editProfile"
         android:name="com.example.arec.EditProfile"
         android:label="edit_profile"
@@ -111,5 +106,48 @@
         android:id="@+id/verificationActivity"
         android:name="com.example.arec.VerificationActivity"
         android:label="activity_verification"
-        tools:layout="@layout/activity_verification" />
+        tools:layout="@layout/activity_verification" >
+        <action
+            android:id="@+id/action_verificationActivity_to_OTPActivity"
+            app:destination="@id/OTPActivity" />
+        <action
+            android:id="@+id/action_verificationActivity_to_usersActivity"
+            app:destination="@id/usersActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/OTPActivity"
+        android:name="com.example.arec.OTPActivity"
+        android:label="activity_otpactivity"
+        tools:layout="@layout/activity_otpactivity" >
+        <action
+            android:id="@+id/action_OTPActivity_to_setupProfileActivity"
+            app:destination="@id/setupProfileActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/setupProfileActivity"
+        android:name="com.example.arec.SetupProfileActivity"
+        android:label="activity_setup_profile"
+        tools:layout="@layout/activity_setup_profile" >
+        <action
+            android:id="@+id/action_setupProfileActivity_to_usersActivity"
+            app:destination="@id/usersActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/usersActivity"
+        android:name="com.example.arec.UsersActivity"
+        android:label="activity_users"
+        tools:layout="@layout/activity_users" >
+        <action
+            android:id="@+id/action_usersActivity_to_chatActivity"
+            app:destination="@id/chatActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatActivity"
+        android:name="com.example.arec.ChatActivity"
+        android:label="activity_chat"
+        tools:layout="@layout/activity_chat" >
+        <action
+            android:id="@+id/action_chatActivity_to_usersActivity"
+            app:destination="@id/usersActivity" />
+    </fragment>
 </navigation>

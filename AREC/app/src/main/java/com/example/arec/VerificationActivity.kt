@@ -14,6 +14,7 @@ import com.example.arec.databinding.ActivityVerificationBinding
 import com.example.arec.databinding.AskLocBinding
 import com.google.firebase.auth.FirebaseAuth
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 class VerificationActivity : Fragment() {
 
@@ -26,19 +27,14 @@ class VerificationActivity : Fragment() {
 
         auth = FirebaseAuth.getInstance()
         if (auth!!.currentUser != null) {
-            //val intent = Intent(this@VerificationActivity, MainActivity::class.java)
-            //startActivity(intent)
-            //finish()
+            findNavController().navigate(R.id.action_verificationActivity_to_usersActivity)
         }
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
         binding!!.editNumber.requestFocus()
         binding!!.continueBtn.setOnClickListener{
-            //val intent = Intent(this@VerificationActivity, OTPActivity::class.java)
-
-            //intent.putExtra("phoneNumber", binding!!.editNumber.text.toString())
-
-            //startActivity(intent)
-
+            val bundleVerificationOTP = Bundle()
+            bundleVerificationOTP.putString("phoneNumber", binding!!.editNumber.text.toString())
+            findNavController().navigate(R.id.action_verificationActivity_to_OTPActivity, bundleVerificationOTP)
         }
 
         return binding.root

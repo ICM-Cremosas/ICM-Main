@@ -13,4 +13,6 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.hide()
     }
+
+
 }
