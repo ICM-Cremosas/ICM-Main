@@ -86,13 +86,13 @@ class MessageAdapter(
                     message.messageId?.let {it1->
                         FirebaseDatabase.getInstance().reference.child("chats")
                             .child(senderRoom!!)
-                            .child("message")
+                            .child("messages")
                             .child(it1).setValue(message)
                     }
                     message.messageId.let {it1 ->
                         FirebaseDatabase.getInstance().reference.child("chats")
                             .child(receiverRoom!!)
-                            .child("message")
+                            .child("messages")
                             .child(it1!!).setValue(message)
                     }
                     dialog.dismiss()
@@ -101,7 +101,7 @@ class MessageAdapter(
                     message.messageId.let { it1 ->
                         FirebaseDatabase.getInstance().reference.child("chats")
                             .child(senderRoom!!)
-                            .child("message")
+                            .child("messages")
                             .child(it1!!).setValue(null)
                     }
                     dialog.dismiss()
@@ -141,13 +141,13 @@ class MessageAdapter(
                     message.messageId?.let { it1 ->
                         FirebaseDatabase.getInstance().reference.child("chats")
                             .child(senderRoom!!)
-                            .child("message")
+                            .child("messages")
                             .child(it1).setValue(message)
                     }
                     message.messageId.let { it1 ->
                         FirebaseDatabase.getInstance().reference.child("chats")
                             .child(receiverRoom!!)
-                            .child("message")
+                            .child("messages")
                             .child(it1!!).setValue(message)
                     }
                     dialog.dismiss()
@@ -156,7 +156,7 @@ class MessageAdapter(
                     message.messageId.let { it1 ->
                         FirebaseDatabase.getInstance().reference.child("chats")
                             .child(senderRoom!!)
-                            .child("message")
+                            .child("messages")
                             .child(it1!!).setValue(null)
                     }
                     dialog.dismiss()
