@@ -176,7 +176,7 @@ class MessageAdapter(
     }
 
     inner class ReceiveMsgHolder(itemView: View):RecyclerView.ViewHolder(itemView){
-        var binding:SendMsgBinding = SendMsgBinding.bind(itemView)
+        var binding:ReceiveMsgBinding = ReceiveMsgBinding.bind(itemView)
     }
     init {
         if (messages != null) {

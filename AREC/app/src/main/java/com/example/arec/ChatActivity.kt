@@ -99,7 +99,7 @@ class ChatActivity : Fragment() {
             binding!!.recyclerView.adapter = adapter
             database!!.reference.child("chats")
                 .child(senderRoom!!)
-                .child("message")
+                .child("messages")
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         messages!!.clear()
@@ -138,7 +138,7 @@ class ChatActivity : Fragment() {
                     .setValue(message).addOnCanceledListener {
                         database!!.reference.child("chats")
                             .child(receiverRoom!!)
-                            .child("message")
+                            .child("messages")
                             .child(randomKey)
                             .setValue(message)
                             .addOnSuccessListener { }
@@ -210,7 +210,7 @@ class ChatActivity : Fragment() {
                                         .updateChildren(lastMsgObj)
                                     database!!.reference.child("chats")
                                         .child(senderRoom!!)
-                                        .child("message")
+                                        .child("messages")
                                         .child(randomkey!!)
                                         .setValue(message).addOnSuccessListener {
                                             database!!.reference.child("chats")
