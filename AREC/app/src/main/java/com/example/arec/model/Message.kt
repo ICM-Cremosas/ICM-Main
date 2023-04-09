@@ -1,7 +1,6 @@
 package com.example.arec.model
 
 class Message {
-
     var messageId :String? = null
     var message :String? = null
     var senderId: String? = null

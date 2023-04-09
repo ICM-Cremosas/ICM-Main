@@ -33,14 +33,11 @@ class MessageAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return if (viewType == ITEM_SENT) {
-            val view = LayoutInflater.from(context).inflate(
-                R.layout.send_msg,
-            parent, false)
+            val view = LayoutInflater.from(context).inflate(R.layout.send_msg, parent, false)
             SentMsgHolder(view)
         }
         else {
-            val view = LayoutInflater.from(context).inflate(R.layout.receive_msg,
-                parent, false)
+            val view = LayoutInflater.from(context).inflate(R.layout.receive_msg, parent, false)
             ReceiveMsgHolder(view)
         }
     }

@@ -8,12 +8,26 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.arec.databinding.CreateEventBinding
+import com.example.arec.model.Event
 import com.google.android.gms.maps.model.LatLng
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class CreateEvent : Fragment() {
 
+    var database: FirebaseDatabase? = null
+    lateinit var binding : CreateEventBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<CreateEventBinding>(inflater, R.layout.create_event,container,false)
+        binding = DataBindingUtil.inflate<CreateEventBinding>(inflater, R.layout.create_event,container,false)
+
+        database = FirebaseDatabase.getInstance()
+
+        setHasOptionsMenu(true)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val latlng = arguments?.getParcelable<LatLng>("LatLngUser")
         if (latlng != null){
@@ -22,16 +36,19 @@ class CreateEvent : Fragment() {
                 val radius = binding.eventRadius.text.toString().toDouble()
                 val duration = binding.eventDuration.text.toString().toDouble()
                 val totalParticipants = binding.eventParticipants.text.toString().toInt()
+                val randomKey = database!!.reference.push().key
+                //Log.i("noob", "$latlng")
+                val event = Event(eventName, randomKey!! , FirebaseAuth.getInstance().uid!!, radius, latlng, duration, totalParticipants)
 
-                val event = Event(eventName, 1, 1, radius, latlng, duration, totalParticipants)
-
-                // add the event to the database
-                Log.i("MyLogs", "Event->" + event)
-                view?.findNavController()?.navigate(R.id.action_createEvent_to_mapsFragment)
+                database!!.reference
+                    .child("events")
+                    .child(randomKey!!)
+                    .setValue(event)
+                    .addOnCompleteListener {
+                        view?.findNavController()?.navigate(R.id.action_createEvent_to_mapsFragment)
+                    }
             }
         }
-        setHasOptionsMenu(true)
-        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
