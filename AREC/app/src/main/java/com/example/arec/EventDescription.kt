@@ -48,6 +48,7 @@ class EventDescription : Fragment() {
 
                                 val bundleDescriptionProfile = Bundle()
                                 bundleDescriptionProfile.putString("source", "joinedEvent")
+                                bundleDescriptionProfile.putString("EventId", eventID)
                                 view.findNavController().navigate(R.id.action_eventDescription_to_profileFragment, bundleDescriptionProfile) }
                         }
                         else{

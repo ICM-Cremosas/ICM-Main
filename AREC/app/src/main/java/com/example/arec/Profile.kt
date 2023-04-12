@@ -1,6 +1,8 @@
 package com.example.arec
 
+import ImagePagerAdapter
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -10,12 +12,20 @@ import androidx.navigation.ui.NavigationUI
 import androidx.viewpager.widget.ViewPager
 import com.example.arec.databinding.ActivityMapsBinding
 import com.example.arec.databinding.ProfileBinding
+import com.example.arec.model.Event
+import com.example.arec.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class Profile : Fragment() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var binding: ProfileBinding
     private var joinedEvent: Boolean = false
+    val userList = mutableListOf<User>() //Participants on event real Time
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<ProfileBinding>(inflater, R.layout.profile,container,false)
 
@@ -42,21 +52,73 @@ class Profile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewPager = binding.viewPager
 
-
-        val images = listOf(R.drawable.ic_add, R.drawable.ic_info, R.drawable.ic_person)
-        val adapter = ImagePagerAdapter(images, requireContext())
-        viewPager.adapter = adapter
-
         if(joinedEvent){
-            binding.butLike.setOnClickListener {
-                val images1 = listOf(R.drawable.ic_chat, R.drawable.ic_info, R.drawable.ic_person)
-                val adapter1 = ImagePagerAdapter(images1, requireContext())
-                viewPager.adapter = adapter1}
-            binding.butDislike.setOnClickListener {
-                val images2 = listOf(R.drawable.ic_map, R.drawable.ic_info, R.drawable.ic_person)
-                val adapter2 = ImagePagerAdapter(images2, requireContext())
-                viewPager.adapter = adapter2}
+
+            val eventID = arguments?.getString("EventId")
+            val databaseReference = FirebaseDatabase.getInstance().reference.child("events").child(eventID!!)
+
+            databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // dataSnapshot will contain the data for the child with the specified ID
+                    if (dataSnapshot.exists()) {
+                        // Retrieve the data from the snapshot and perform the desired operations
+                        val event = dataSnapshot.getValue(Event::class.java)
+
+                        FirebaseDatabase.getInstance().reference.child("users").addValueEventListener(object : ValueEventListener{
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                for(snapshot1 in snapshot.children) {
+                                    val user = snapshot1.getValue(User::class.java)
+                                    if(event!!.participants.contains(user!!.uid))
+                                        userList.add(user)
+                                    Log.e("noob", userList.toString())
+                                }
+
+                                var currentUserIndex = 0
+
+
+                                // Update the adapter with the current user data
+                                val images = listOf(userList[currentUserIndex].profileImage)
+                                val adapter = ImagePagerAdapter(images, requireContext())
+                                viewPager.adapter = adapter
+
+                                // Handle button click events
+                                binding.butLike.setOnClickListener {
+                                    // Move to the next user when Like button is clicked
+                                    if (currentUserIndex < userList.size - 1) {
+                                        currentUserIndex++
+                                        // Update the adapter with the next user data
+                                        val images = listOf(userList[currentUserIndex].profileImage)
+                                        val adapter = ImagePagerAdapter(images, requireContext())
+                                        viewPager.adapter = adapter
+                                    }
+                                }
+                                binding.butDislike.setOnClickListener {
+                                    // Move to the next user when Dislike button is clicked
+                                    if (currentUserIndex < userList.size - 1) {
+                                        currentUserIndex++
+                                        // Update the adapter with the next user data
+                                        val images = listOf(userList[currentUserIndex].profileImage)
+                                        val adapter = ImagePagerAdapter(images, requireContext())
+                                        viewPager.adapter = adapter
+                                    }
+                                }
+
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {}
+
+                        })
+                    } else {
+                        // Child with the specified ID does not exist in the database
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle any errors that may occur while retrieving the data
+                }
+            })
         }
+
 
 
     }

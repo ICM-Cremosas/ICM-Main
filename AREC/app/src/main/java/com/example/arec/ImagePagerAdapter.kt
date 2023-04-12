@@ -1,20 +1,19 @@
-package com.example.arec
-
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
+import com.squareup.picasso.Picasso
 
-class ImagePagerAdapter(private val images: List<Int>, private val context: Context) : PagerAdapter() {
+class ImagePagerAdapter(private val imageUrls: List<String?>, private val context: Context) : PagerAdapter() {
 
     override fun getCount(): Int {
-        return images.size
+        return imageUrls.size
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = ImageView(context)
-        imageView.setImageResource(images[position])
+        Picasso.get().load(imageUrls[position]).into(imageView)
         container.addView(imageView)
         return imageView
     }

@@ -1,8 +1,12 @@
 package com.example.arec
 
 import android.Manifest
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
@@ -21,14 +25,11 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.CircleOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.arec.model.Event
-import com.google.android.gms.maps.model.Marker
+import com.google.android.gms.maps.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -38,6 +39,7 @@ import com.google.firebase.database.ValueEventListener
 
 class MapsActivity : Fragment(), OnMapReadyCallback {
 
+    private var progressDialog: ProgressDialog? = null
     private lateinit var mMap: GoogleMap
     private var userMaker : Marker? = null
     private lateinit var binding: ActivityMapsBinding
@@ -87,6 +89,9 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        progressDialog = ProgressDialog(requireContext())
+        progressDialog?.setMessage("Loading Map...")
+        progressDialog?.show()
         var mapFragment = childFragmentManager.findFragmentByTag("mapFragment") as SupportMapFragment?
         if (mapFragment == null) {
             val transaction = childFragmentManager.beginTransaction()
@@ -108,6 +113,15 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
 
             // remove these after u have the event dabase done
             val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+
+            latLngUser = LatLng(location!!.latitude, location!!.longitude)
+
+
+
+            // Example usage in your MapsActivity
+            val icon = BitmapDescriptorFactory.fromBitmap(getBitmapFromVectorDrawable(requireContext(), R.drawable.ic_person_map))
+            var userMaker = mMap.addMarker(MarkerOptions().position(latLngUser).title("User").icon(icon))
 
             database!!.reference.child("events")
                 .addValueEventListener(object :
@@ -124,13 +138,9 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
                 override fun onCancelled(error: DatabaseError) {}
 
             })
-
-
-
             // Set up the location listener to move the marker
             val locationListener = object : LocationListener {
                 override fun onLocationChanged(location: Location) {
-
                     // Update the marker position User from the location of the callback
                     latLngUser = LatLng(location.latitude, location.longitude)
 
@@ -138,8 +148,14 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
                     userMaker?.remove()
 
                     //add the marker for the user and event
-                    userMaker = mMap.addMarker(MarkerOptions().position(latLngUser).title("User"))
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngUser, 15f))
+                    userMaker = mMap.addMarker(MarkerOptions().position(latLngUser).title("User").icon(icon))
+                    userMaker!!.tag = "user"
+
+                    if (progressDialog?.isShowing == true) {
+                        progressDialog?.dismiss()
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngUser, 15f))
+                    }
+
                 }
 
                 //perceber melhor para que que isto serve
@@ -157,7 +173,7 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
         }
 
         mMap.setOnMarkerClickListener { clickedMarker ->
-            if(clickedMarker != userMaker) {
+            if((clickedMarker.tag as String) != "user") {
                 val databaseReference = FirebaseDatabase.getInstance().reference.child("events")
                     .child(clickedMarker.tag as String)
 
@@ -222,6 +238,19 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
         mMap.addCircle(circleOptions)
     }
 
+    // Function to convert a vector drawable to a Bitmap
+    fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(context, drawableId)
+        val bitmap = Bitmap.createBitmap(
+            drawable?.intrinsicWidth ?: 0,
+            drawable?.intrinsicHeight ?: 0,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(bitmap)
+        drawable?.setBounds(0, 0, canvas.width, canvas.height)
+        drawable?.draw(canvas)
+        return bitmap
+    }
 
 
 }
