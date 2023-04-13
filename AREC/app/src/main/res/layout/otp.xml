@@ -2,15 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.arec.OTPActivity">
+    tools:context="com.example.arec.OTP">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:layout_gravity="center"
-        android:background="#F2F7F4"
-        >
+        android:layout_gravity="center">
+
 
         <ImageView
             android:src="@drawable/chat_icon"
@@ -20,18 +19,18 @@
             android:layout_height="250dp"/>
         <TextView
             android:id="@+id/phone_label"
-            android:text="Verifiy +351925263689"
+            android:text="Verifiy number"
             android:textAlignment="center"
             android:textSize="25sp"
             android:textStyle="bold|normal"
-            android:textColor="#2D45CA"
+            android:textColor="@color/pink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <TextView
             android:text="Enter the OTP code to verify your Phone Number"
             android:textAlignment="center"
             android:textSize="13sp"
-            android:textColor="#424040"
+            android:textColor="@color/pink"
             android:textStyle="normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -66,12 +65,12 @@
                     android:layout_height="wrap_content"/>
 
                 <Button
-                    android:id="@+id/continueBtn01"
+                    android:id="@+id/continue_btn"
                     android:text="Continue"
                     android:textStyle="bold|normal"
                     android:textSize="16sp"
                     android:textAllCaps="false"
-                    app:backgroundTint="#5FC3BD"
+                    app:backgroundTint="@color/pink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 

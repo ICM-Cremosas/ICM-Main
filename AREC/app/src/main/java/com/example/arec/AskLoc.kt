@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.example.arec.databinding.AskLocBinding
 
 class AskLoc : Fragment() {
@@ -18,8 +17,6 @@ class AskLoc : Fragment() {
         // hide the action bar
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
-        binding.butAskloc.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_askLoc_to_mapsFragment) }
         return binding.root
     }
 

@@ -1,21 +1,17 @@
 package com.example.arec.model
 
 class User {
-    var uid:String? = null
-    var name:String? = null
-    var phoneNumber:String? = null
+    var name: String? = null
+    var phoneNumber: String? = null
+    var uid: String? = null
     var profileImage:String? = null
-    constructor() {}
-    constructor(
-        uid: String?,
-        name: String?,
-        phoneNumber: String?,
-        profileImage: String?
-    ) {
-        this.uid = uid
+
+    constructor(){}
+
+    constructor(name: String?, phoneNumber: String?, uid: String?, profileImage: String?) {
         this.name = name
         this.phoneNumber = phoneNumber
+        this.uid = uid
         this.profileImage = profileImage
     }
-
 }

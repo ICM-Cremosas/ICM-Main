@@ -5,14 +5,12 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -20,17 +18,15 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.arec.databinding.ActivityMapsBinding
+import com.example.arec.model.Event
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import com.example.arec.model.Event
 import com.google.android.gms.maps.model.*
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -131,7 +127,6 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
                     for(snapshot1 in snapshot.children) {
                         val event: Event? = snapshot1.getValue(Event::class.java)
                         createEventMarker(event!!)
-                        //Log.e("noob", event.toString())
                     }
                 }
 

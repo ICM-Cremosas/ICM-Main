@@ -4,23 +4,20 @@ import ImagePagerAdapter
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.viewpager.widget.ViewPager
-import com.example.arec.databinding.ActivityMapsBinding
 import com.example.arec.databinding.ProfileBinding
 import com.example.arec.model.Event
 import com.example.arec.model.User
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class Profile : Fragment() {
+class   Profile : Fragment() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var binding: ProfileBinding

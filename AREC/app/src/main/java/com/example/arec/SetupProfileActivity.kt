@@ -3,30 +3,20 @@ package com.example.arec
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.content.ContextCompat.startActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.navigation.findNavController
+import androidx.fragment.app.Fragment
 import com.example.arec.databinding.ActivitySetupProfileBinding
-import com.example.arec.databinding.AskLocBinding
 import com.example.arec.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import java.net.URI
-import java.util.Date
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.navigation.fragment.findNavController
-import com.example.arec.databinding.ActivityMapsBinding
+import java.util.*
 
 
 class SetupProfileActivity : Fragment() {
@@ -75,7 +65,6 @@ class SetupProfileActivity : Fragment() {
                                 .setValue(user)
                                 .addOnCompleteListener {
                                     dialog!!.dismiss()
-                                    findNavController().navigate(R.id.action_setupProfileActivity_to_usersActivity)
                                 }
                         }
                     }
@@ -90,7 +79,6 @@ class SetupProfileActivity : Fragment() {
                             .setValue(user)
                             .addOnCanceledListener {
                                 dialog!!.dismiss()
-                                findNavController().navigate(R.id.action_setupProfileActivity_to_usersActivity)
                             }
                     }
                 }
