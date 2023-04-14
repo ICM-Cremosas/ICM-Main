@@ -4,7 +4,7 @@
     <string name="login">Login</string>
     <string name="password">Password</string>
     <string name="nome">Nome</string>
-    <string name="register">Register</string>
+    <string name="register">Sign Up</string>
     <string name="ativar_localiza_o">Ativar localização</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -27,7 +27,7 @@
     <string name="edit_profile_title">Edit Profile</string>
     <string name="name_label">Your Name</string>
     <string name="name_edit">Name</string>
-    <string name="age_label">Your Age</string>
+    <string name="age_label">My Age</string>
     <string name="age_preference_label">Age Group</string>
     <string name="gender">My Sex</string>
     <string name="sexualorientation">Show me</string>
@@ -46,5 +46,11 @@
     <string name="repeatpassword">Repeat Password</string>
     <string name="we_will_send_you_an">We will send you an</string>
     <string name="get_solution">Ask your any question for Expert and get olution for your problem</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="males">Males</string>
+    <string name="females">Females</string>
+    <string name="everyone">Everyone</string>
 
 </resources>

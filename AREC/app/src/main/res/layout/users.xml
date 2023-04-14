@@ -7,25 +7,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/bg">
+        android:background="@color/white">
 
         <TextView
-            android:text="Answer &amp; Question"
+            android:text="Your Matches"
             android:textSize="25sp"
             android:textStyle="bold|normal"
             android:textAlignment="center"
             android:layout_marginTop="20dp"
-            android:textColor="#182881"
+            android:textColor="@color/pink"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <TextView
-            android:text="@string/get_solution"
+            android:text="Talk to your matches"
             android:textSize="13sp"
             android:textStyle="bold|normal"
-            android:textAlignment="textStart"
+            android:textAlignment="center"
             android:layout_marginTop="20dp"
-            android:textColor="#ED0453"
+            android:textColor="@color/black"
             android:layout_marginStart="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

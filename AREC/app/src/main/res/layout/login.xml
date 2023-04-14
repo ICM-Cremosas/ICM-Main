@@ -9,12 +9,11 @@
 
                 <ImageView
                     android:id="@+id/app_logo"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/chat_icon"
+                    android:layout_width="333dp"
+                    android:layout_height="290dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="70dp"
-                    />
+                    android:src="@drawable/ic_app" />
                 <EditText
                     android:id="@+id/edt_phone"
                     android:layout_width="match_parent"

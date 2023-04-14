@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,8 +40,6 @@ class Chat : Fragment() {
 
         senderRoom = receiverUid + senderUid
         receiverRoom = senderUid + receiverUid
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = name
 
         chatRecyclerView = binding.chatRecyclerView
         sendButton = binding.sentButton

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -21,6 +22,9 @@ class Register : Fragment() {
     var database: FirebaseDatabase? = null
     lateinit var binding : RegisterBinding
     var selectedImage: String? = ""
+    var age : Int = 18
+    var gender : String? = ""
+    var show : String? = ""
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<RegisterBinding>(inflater, R.layout.register,container,false)
 
@@ -28,6 +32,26 @@ class Register : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         database = FirebaseDatabase.getInstance()
+
+
+        binding.ageSeekBar.progress = age
+        binding.ageLabel.text = "Age: $age"
+
+        binding.ageSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                // Update the TextView with the current progress value
+                binding.ageLabel.text = "Age: $progress"
+                age = progress
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                // Do nothing
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                // Do nothing
+            }
+        })
 
         binding.profileImage.setOnClickListener{
             val intent = Intent()
@@ -40,14 +64,41 @@ class Register : Fragment() {
             val bundleRegisterOtp = Bundle()
             val name = binding.edtName.text.toString()
             val phone = binding.edtPhone.text.toString()
-            if(name != "" && phone != "" && selectedImage != ""){
+            //gets value checked on gender
+            when(binding.genderRadioGroup.checkedRadioButtonId)  {
+                R.id.male_radio_button->
+                    gender = "male"
+                R.id.female_radio_button->
+                    gender = "female"
+                R.id.other_radio_button->
+                    gender = "other"
+            }
+            //gets value checked on sexual orientaion
+            when(binding.sexualOrientationRadioGroup.checkedRadioButtonId)  {
+                R.id.males_radio_button->
+                    show = "males"
+                R.id.females_radio_button->
+                    show = "females"
+                R.id.either_radio_button->
+                    show = "everyone"
+            }
+            if(name == ""){
+                binding.edtName.setError("Please type a name")
+            }
+            if(phone == ""){
+                binding.edtPhone.setError("Please type a phone")
+            }
+            if(selectedImage == ""){
+                Toast.makeText(requireContext(), "Please select an Image", Toast.LENGTH_LONG).show()
+            }
+            else{
                 bundleRegisterOtp.putString("phone", phone)
                 bundleRegisterOtp.putString("name", name)
                 bundleRegisterOtp.putString("selectedImage", selectedImage)
+                bundleRegisterOtp.putInt("age", age)
+                bundleRegisterOtp.putString("gender", gender)
+                bundleRegisterOtp.putString("show", show)
                 view.findNavController().navigate(R.id.action_register_to_OTP, bundleRegisterOtp)
-            }
-            else{
-                Toast.makeText(requireContext(), "All fields Must be filled and Photo selected", Toast.LENGTH_LONG).show()
             }
 
 

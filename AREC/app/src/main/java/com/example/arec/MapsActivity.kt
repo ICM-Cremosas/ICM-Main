@@ -40,7 +40,6 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
     private var userMaker : Marker? = null
     private lateinit var binding: ActivityMapsBinding
     private lateinit var latLngUser : LatLng
-    private lateinit var user : User
     var database: FirebaseDatabase? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -12,10 +12,14 @@
         tools:layout="@layout/login" >
         <action
             android:id="@+id/action_login_to_register"
-            app:destination="@id/register" />
+            app:destination="@id/register"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_login_to_OTP"
-            app:destination="@id/OTP" />
+            app:destination="@id/OTP"
+            app:popUpTo="@id/login"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/register"
@@ -24,7 +28,9 @@
         tools:layout="@layout/register" >
         <action
             android:id="@+id/action_register_to_OTP"
-            app:destination="@id/OTP" />
+            app:destination="@id/OTP"
+            app:popUpTo="@id/register"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/maps"
@@ -93,7 +99,9 @@
         tools:layout="@layout/otp" >
         <action
             android:id="@+id/action_OTP_to_mapsFragment"
-            app:destination="@id/maps" />
+            app:destination="@id/maps"
+            app:popUpTo="@id/OTP"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/users"
@@ -102,7 +110,9 @@
         tools:layout="@layout/users" >
         <action
             android:id="@+id/action_usersActivity_to_chatActivity"
-            app:destination="@id/chatActivity" />
+            app:destination="@id/chatActivity"
+            app:popUpTo="@id/users"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/chatActivity"
@@ -111,6 +121,8 @@
         tools:layout="@layout/activity_chat" >
         <action
             android:id="@+id/action_chatActivity_to_usersActivity"
-            app:destination="@id/users" />
+            app:destination="@id/users"
+            app:popUpTo="@id/chatActivity"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

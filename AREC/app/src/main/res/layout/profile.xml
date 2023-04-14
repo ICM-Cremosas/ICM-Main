@@ -39,7 +39,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.58"
                 app:layout_constraintStart_toEndOf="@+id/but_dislike"
-                app:srcCompat="@drawable/ic_chat" />
+                app:srcCompat="@drawable/ic_heart" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"

@@ -1,3 +1,5 @@
+package com.example.arec.adapter
+
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup

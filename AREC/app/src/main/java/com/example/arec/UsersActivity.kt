@@ -2,7 +2,6 @@ package com.example.arec
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,7 @@ class UsersActivity : Fragment() {
     var users: ArrayList<User>? = null
     var usersAdapter: UserAdapter? = null
     var dialog: ProgressDialog? = null
-    var user: User? = null
+    var userLogged: User? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<UsersBinding>(inflater, R.layout.users,container,false)
@@ -44,7 +43,7 @@ class UsersActivity : Fragment() {
             .child(FirebaseAuth.getInstance().uid!!)
             .addValueEventListener(object :ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    user = snapshot.getValue(User::class.java)
+                    userLogged = snapshot.getValue(User::class.java)
                 }
 
                 override fun onCancelled(error: DatabaseError) {}
@@ -56,9 +55,8 @@ class UsersActivity : Fragment() {
                 users!!.clear()
                 for(snapshot1 in snapshot.children) {
                     val user: User? = snapshot1.getValue(User::class.java)
-                    if(!(user!!.uid.equals(FirebaseAuth.getInstance().uid)))
+                    if(!(user!!.uid.equals(FirebaseAuth.getInstance().uid)) and userLogged!!.matched.contains(user.uid!!) )
                         users!!.add(user)
-                    Log.e("noob", users!!.toString())
                 }
                 usersAdapter!!.notifyDataSetChanged()
             }

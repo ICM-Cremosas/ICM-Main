@@ -36,7 +36,11 @@ class OTP : Fragment() {
         val phone = arguments?.getString("phone")
         val name = arguments?.getString("name")
         val image = arguments?.getString("selectedImage")
+        val age = arguments?.getInt("age")
+        val gender = arguments?.getString("gender")
+        val show = arguments?.getString("show")
         binding.phoneLabel.text = "Verify $phone"
+
 
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phone!!)       // Phone number to verify
@@ -68,7 +72,7 @@ class OTP : Fragment() {
                 .addOnCompleteListener {task ->
                     if(task.isSuccessful) {
                         if(name != null) {
-                            addUserToDatabase(name!!,phone,auth.currentUser?.uid!!, image!!)
+                            addUserToDatabase(name!!,phone,auth.currentUser?.uid!!, age!!, gender!!, show!!,  image!!)
                         }
                         view?.findNavController()?.navigate(R.id.action_OTP_to_mapsFragment)
                         Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
@@ -82,10 +86,10 @@ class OTP : Fragment() {
     }
 
 
-    private fun addUserToDatabase(name: String, phone: String, uid:String, image:String) {
+    private fun addUserToDatabase(name: String, phone: String, uid:String, age:Int, gender:String, show : String ,image:String) {
         database = FirebaseDatabase.getInstance().getReference()
 
-        database.child("users").child(uid).setValue(User(name,phone,uid, image))
+        database.child("users").child(uid).setValue(User(name,phone,uid, age, gender, show,"", image))
 
     }
 }

@@ -36,7 +36,6 @@ class CreateEvent : Fragment() {
                 val duration = binding.eventDuration.text.toString().toDouble()
                 val totalParticipants = binding.eventParticipants.text.toString().toInt()
                 val randomKey = database!!.reference.push().key
-                //Log.i("noob", "$latlng")
                 val event = Event(eventName, randomKey!! , FirebaseAuth.getInstance().uid!!, radius, latlng, duration, totalParticipants)
 
                 database!!.reference

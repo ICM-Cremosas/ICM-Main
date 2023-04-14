@@ -138,21 +138,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/pink"
-                    android:text="Male"/>
+                    android:text="@string/male"/>
 
                 <RadioButton
                     android:id="@+id/female_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/pink"
-                    android:text="Female"/>
+                    android:text="@string/female"/>
 
                 <RadioButton
                     android:id="@+id/other_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/pink"
-                    android:text="Other"/>
+                    android:text="@string/other"/>
             </RadioGroup>
 
             <TextView
@@ -183,21 +183,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/pink"
-                    android:text="Males"/>
+                    android:text="@string/males"/>
 
                 <RadioButton
                     android:id="@+id/females_radio_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/pink"
-                    android:text="Females"/>
+                    android:text="@string/females"/>
 
                 <RadioButton
                     android:id="@+id/either_radio_button"
                     android:layout_width="wrap_content"
                     android:buttonTint="@color/pink"
                     android:layout_height="wrap_content"
-                    android:text="Everyone"/>
+                    android:text="@string/everyone"/>
             </RadioGroup>
 
 
