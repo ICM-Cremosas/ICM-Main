@@ -31,16 +31,23 @@ class   Profile : Fragment() {
 
         binding.butEdit.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_profileFragment_to_editProfile) }
+        
+        binding.logoutAccount.setOnClickListener {view : View ->
+            auth.signOut()
+            view.findNavController().navigate(R.id.action_profile_to_login)
+        }
 
         auth = FirebaseAuth.getInstance()
 
         val source = arguments?.getString("source")
         if (source == "joinedEvent") {
             binding.butEdit.setVisibility(View.GONE)
+            binding.logoutAccount.setVisibility(View.GONE)
             joinedEvent = true
         } else{
             binding.butDislike.setVisibility(View.GONE)
             binding.butLike.setVisibility(View.GONE)
+
             joinedEvent = false
         }
 
@@ -70,19 +77,32 @@ class   Profile : Fragment() {
                         FirebaseDatabase.getInstance().reference.child("users")
                             .addValueEventListener(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
+                                    userList.clear()
+                                    for (snapshot1 in snapshot.children) {
+                                        val user = snapshot1.getValue(User::class.java)
+                                        if(user!!.uid == auth.currentUser?.uid!!) {
+                                            userLogged = user
+                                            break
+                                        }
+                                        Log.e("noob", userList.toString())
+                                    }
                                     for (snapshot1 in snapshot.children) {
                                         val user = snapshot1.getValue(User::class.java)
                                         if (event!!.participants.contains(user!!.uid))
                                             if(user!!.uid != auth.currentUser?.uid!!)
-                                                userList.add(user)
-                                            else
-                                                userLogged=user
-                                        Log.e("noob", userList.toString())
-                                        //tirar o proprio user
+                                                if(userLogged.show.equals("males") && user.gender == "male" ||
+                                                    userLogged.show.equals("females") && user.gender == "female" ||
+                                                    userLogged.show.equals("everyone") ||
+                                                    userLogged.show.equals("everyone") && user.gender =="other")
+                                                    userList.add(user)
+                                        Log.e("noob", userList.toString()   )
                                     }
 
-                                    var currentUserIndex = 0
+                                    val avatarResourceId = R.drawable.avatar
+                                    val avatarUrl = "android.resource://" + context!!.packageName + "/" + avatarResourceId
 
+                                    userList.add(User("", "", "", 0, "", "", "" ,avatarUrl))
+                                    var currentUserIndex = 0
 
                                     // Update the adapter with the current user data
                                     val images = listOf(userList[currentUserIndex].profileImage)
@@ -173,6 +193,7 @@ class   Profile : Fragment() {
 
                                         }
                                     }
+
 
                                 }
 

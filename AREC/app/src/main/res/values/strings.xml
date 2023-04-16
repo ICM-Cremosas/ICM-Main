@@ -52,5 +52,7 @@
     <string name="males">Males</string>
     <string name="females">Females</string>
     <string name="everyone">Everyone</string>
+    <string name="log_out">Log Out</string>
+    <string name="delete_event">Delete Event</string>
 
 </resources>

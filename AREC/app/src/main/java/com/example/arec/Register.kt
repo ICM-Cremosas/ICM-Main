@@ -91,7 +91,7 @@ class Register : Fragment() {
             if(selectedImage == ""){
                 Toast.makeText(requireContext(), "Please select an Image", Toast.LENGTH_LONG).show()
             }
-            else{
+            if(!(name == "" || phone == "" || selectedImage == "")){
                 bundleRegisterOtp.putString("phone", phone)
                 bundleRegisterOtp.putString("name", name)
                 bundleRegisterOtp.putString("selectedImage", selectedImage)
@@ -121,12 +121,14 @@ class Register : Fragment() {
                         reference.downloadUrl.addOnCompleteListener{ uri ->
                             selectedImage = uri.result.toString()
                             Log.e("noob", selectedImage!!)
+
                         }
                     }
+                    else
+                        Log.e("noob", "n deu??")
                 }
 
                 binding!!.profileImage.setImageURI(data.data)
-
 
             }
         }

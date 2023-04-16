@@ -87,5 +87,21 @@
             app:layout_constraintTop_toBottomOf="@+id/event_participants_out"
             app:layout_constraintWidth_percent=".8" />
 
+        <TextView
+            android:id="@+id/deletEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/delete_event"
+            android:textColor="@color/red"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/but_join"
+            android:visibility="invisible"
+            app:layout_constraintVertical_bias="0.9" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

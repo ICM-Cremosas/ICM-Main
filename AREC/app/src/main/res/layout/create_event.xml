@@ -32,7 +32,7 @@
             android:autofillHints="Name"
 
 
-            android:background="@drawable/edit_text_bg"
+            android:background="@drawable/edt_background"
             android:hint="@string/event_name"
             android:inputType="text"
             android:paddingLeft="20sp"
@@ -55,7 +55,7 @@
             android:layout_height="45dp"
 
             android:autofillHints="radius"
-            android:background="@drawable/edit_text_bg"
+            android:background="@drawable/edt_background"
 
 
             android:hint="@string/event_radius"
@@ -81,7 +81,7 @@
             android:autofillHints="Durantion"
 
 
-            android:background="@drawable/edit_text_bg"
+            android:background="@drawable/edt_background"
             android:hint="@string/event_duration"
             android:inputType="numberDecimal"
             android:paddingLeft="20sp"
@@ -105,7 +105,7 @@
 
 
             android:autofillHints="Participants"
-            android:background="@drawable/edit_text_bg"
+            android:background="@drawable/edt_background"
             android:hint="@string/event_participants"
             android:inputType="numberDecimal"
             android:paddingLeft="20sp"

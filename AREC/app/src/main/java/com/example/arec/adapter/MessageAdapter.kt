@@ -4,8 +4,10 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.arec.R
 import com.example.arec.model.Message
 import com.google.firebase.auth.FirebaseAuth
@@ -35,10 +37,38 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
 
         if(holder.javaClass == SentViewHolder::class.java) {
             val viewHolder = holder as SentViewHolder
-            holder.sentMessage.text = currentMessage.message
+
+            if(currentMessage.message.equals("photo")) {
+
+                viewHolder.sentImage.visibility = View.VISIBLE
+                viewHolder.sentMessage.visibility = View.GONE
+                Glide.with(context)
+                    .load(currentMessage.imageUrl)
+                    .placeholder(R.drawable.placeholder)
+                    .into(viewHolder.sentImage)
+            } else {
+                viewHolder.sentImage.visibility = View.GONE
+                viewHolder.sentMessage.visibility = View.VISIBLE
+                viewHolder.sentMessage.text = currentMessage.message
+            }
+
         } else {
             val viewHolder =  holder as ReceivedViewHolder
-            holder.receivedMessage.text = currentMessage.message
+
+            if(currentMessage.message.equals("photo")) {
+
+                viewHolder.receivedImage.visibility = View.VISIBLE
+                viewHolder.receivedMessage.visibility = View.GONE
+                Glide.with(context)
+                    .load(currentMessage.imageUrl)
+                    .placeholder(R.drawable.placeholder)
+                    .into(viewHolder.receivedImage)
+            } else {
+                viewHolder.receivedImage.visibility = View.GONE
+                viewHolder.receivedMessage.visibility = View.VISIBLE
+                viewHolder.receivedMessage.text = currentMessage.message
+            }
+
         }
     }
 
@@ -55,10 +85,12 @@ class MessageAdapter(val context: Context, val messageList: ArrayList<Message>):
 
     class SentViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val sentMessage = itemView.findViewById<TextView>(R.id.txt_sent_message)
+        val sentImage = itemView.findViewById<ImageView>(R.id.image_sent)
     }
 
     class ReceivedViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val receivedMessage = itemView.findViewById<TextView>(R.id.txt_received_message)
+        val receivedImage = itemView.findViewById<ImageView>(R.id.image_received)
 
     }
 }

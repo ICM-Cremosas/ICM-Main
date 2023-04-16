@@ -3,6 +3,7 @@ package com.example.arec.model
 class Message {
     var message: String? = null
     var senderId: String? = null
+    var imageUrl: String? = null
 
     constructor(){}
 

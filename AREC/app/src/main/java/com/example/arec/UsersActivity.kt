@@ -2,12 +2,12 @@ package com.example.arec
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.arec.adapter.UserAdapter
 import com.example.arec.databinding.UsersBinding
@@ -64,7 +64,7 @@ class UsersActivity : Fragment() {
             override fun onCancelled(error: DatabaseError) {}
 
         })
-
+        setHasOptionsMenu(true)
         return binding!!.root
     }
 
@@ -80,6 +80,15 @@ class UsersActivity : Fragment() {
         val currentId = FirebaseAuth.getInstance().uid
         database!!.reference.child("presence")
             .child(currentId!!).setValue("offline ")
+    }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.toolbar_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                || super.onOptionsItemSelected(item)
     }
 }

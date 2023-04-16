@@ -139,8 +139,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/pink"
-                android:text="@string/males"
-                android:checked="true"/>
+                android:text="@string/males" />
 
             <RadioButton
                 android:id="@+id/females_radio_button"
@@ -154,7 +153,8 @@
                 android:layout_width="wrap_content"
                 android:buttonTint="@color/pink"
                 android:layout_height="wrap_content"
-                android:text="@string/everyone"/>
+                android:text="@string/everyone"
+                android:checked="true"/>
         </RadioGroup>
 
         <Button
@@ -163,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/sexualOrientation_radio_group"
             android:text="@string/register"
-            android:background="@drawable/btn_background"
+            android:background="@drawable/button_bg"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:layout_centerHorizontal="true"

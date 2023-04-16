@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.arec.databinding.LoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -22,6 +23,10 @@ class Login : Fragment() {
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         auth = FirebaseAuth.getInstance()
+
+        if (auth!!.currentUser != null) {
+            findNavController().navigate(R.id.action_login_to_maps)
+        }
 
         binding.btnSignup.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_login_to_register)

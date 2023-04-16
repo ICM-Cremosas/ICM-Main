@@ -1,13 +1,11 @@
 package com.example.arec
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.arec.databinding.EventDecriptionBinding
 import com.example.arec.model.Event
@@ -18,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class EventDescription : Fragment() {
-
+    private lateinit var auth: FirebaseAuth
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<EventDecriptionBinding>(inflater, R.layout.event_decription,container,false)
         setHasOptionsMenu(true)
@@ -38,14 +36,24 @@ class EventDescription : Fragment() {
                         binding.eventDurationOut.text = event.duration.toString()
                         binding.eventRadiusOut.text = event.radius.toString()
                         binding.eventParticipantsOut.text = event.participants.size.toString()
+                        auth = FirebaseAuth.getInstance()
+                        if(event.eventOwner == auth.currentUser!!.uid){
+                            binding.deletEvent.setVisibility(View.VISIBLE)
+                            binding.deletEvent.setOnClickListener{view : View ->
+                                val database = FirebaseDatabase.getInstance().reference
+                                database.child("events").child(event.ID).removeValue()
+                                view.findNavController().navigate(R.id.action_eventDescription_to_mapsFragment)
+                            }
+                        }
 
                         // Retrieve the boolean to verify if an event is inside from the arguments
                         val data = arguments?.getBoolean("inside")
                         if(data!!){
-                            binding.butJoin.setOnClickListener { view : View ->
-                                event.participants.add(FirebaseAuth.getInstance().uid!!)
-                                dataSnapshot.ref.setValue(event)
-
+                            binding.butJoin.setOnClickListener { view: View ->
+                                if (!event.participants.contains(FirebaseAuth.getInstance().uid!!)){
+                                    event.participants.add(FirebaseAuth.getInstance().uid!!)
+                                    dataSnapshot.ref.setValue(event)
+                                }
                                 val bundleDescriptionProfile = Bundle()
                                 bundleDescriptionProfile.putString("source", "joinedEvent")
                                 bundleDescriptionProfile.putString("EventId", eventID)
@@ -56,7 +64,7 @@ class EventDescription : Fragment() {
                                 Toast.makeText(context, "Can't Join out of range", Toast.LENGTH_LONG).show();
                                 view.findNavController().navigate(R.id.action_eventDescription_to_mapsFragment) }
                         }
-                        Log.i("noob", "is It in?" + data)
+                        //Log.i("noob", "is It in?" + data)
                     } else {
                         // Child with the specified ID does not exist in the database
                     }
