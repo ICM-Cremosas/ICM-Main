@@ -5,7 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import com.example.arec.R
 
 class ImagePagerAdapter(private val imageUrls: List<String?>, private val context: Context) : PagerAdapter() {
 
@@ -16,7 +17,10 @@ class ImagePagerAdapter(private val imageUrls: List<String?>, private val contex
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val imageView = ImageView(context)
 
-        Picasso.get().load(imageUrls[position]).into(imageView)
+        Glide.with(context)
+            .load(imageUrls[position])
+            .placeholder(R.drawable.placeholder)
+            .into(imageView)
 
         // Add padding to the top and bottom of the image to create vertical orientation
         val paddingPx = convertDpToPixels(context, 16) // 16 dp, adjust as needed

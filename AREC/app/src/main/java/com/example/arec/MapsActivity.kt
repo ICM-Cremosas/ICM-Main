@@ -42,6 +42,7 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
     private lateinit var latLngUser : LatLng
     var database: FirebaseDatabase? = null
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<ActivityMapsBinding>(inflater, R.layout.activity_maps,container,false)
 
@@ -111,7 +112,6 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
             val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
 
             latLngUser = LatLng(location!!.latitude, location!!.longitude)
-
 
 
             // Example usage in your MapsActivity
