@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
 import com.example.arec.databinding.EditProfileBinding
 import com.example.arec.model.User
 import com.google.firebase.auth.FirebaseAuth
@@ -124,6 +125,21 @@ class EditProfile : Fragment() {
                         "everyone"->
                             binding.sexualOrientationRadioGroup.check(R.id.either_radio_button)
                     }
+                    Glide.with(context!!)
+                        .load(user!!.profileImage.getOrNull(0))
+                        .placeholder(R.drawable.placeholder)
+                        .into(binding.profileImage1)
+
+                    Glide.with(context!!)
+                        .load(user!!.profileImage.getOrNull(1))
+                        .placeholder(R.drawable.placeholder)
+                        .into(binding.profileImage2)
+
+                    Glide.with(context!!)
+                        .load(user!!.profileImage.getOrNull(2))
+                        .placeholder(R.drawable.placeholder)
+                        .into(binding.profileImage3)
+
 
                     binding.ageSeekBar.progress = user!!.age!!
                     binding.ageLabel.text = "Age: ${user!!.age}"
@@ -173,12 +189,24 @@ class EditProfile : Fragment() {
                         reference.downloadUrl.addOnCompleteListener{ uri ->
                             selectedImageList.add(uri.result.toString())
                             when (requestCode) {
-                                45 -> { binding!!.profileImage1.setImageURI(data.data)
-                                    user!!.profileImage.add(0, uri.result.toString()) }
-                                46 -> { binding!!.profileImage2.setImageURI(data.data)
-                                    user!!.profileImage.add(1, uri.result.toString()) }
-                                else -> { binding!!.profileImage3.setImageURI(data.data)
-                                    user!!.profileImage.add(2, uri.result.toString()) }
+                                45 -> { binding.profileImage1.setImageURI(data.data)
+                                    if(user!!.profileImage.getOrNull(0) == null)
+                                        user!!.profileImage.add(0, uri.result.toString())
+                                    else
+                                        user!!.profileImage.set(0, uri.result.toString())
+                                }
+                                46 -> { binding.profileImage2.setImageURI(data.data)
+                                    if(user!!.profileImage.getOrNull(1) == null)
+                                        user!!.profileImage.add(1, uri.result.toString())
+                                    else
+                                        user!!.profileImage.set(1, uri.result.toString())
+                                }
+                                else -> { binding.profileImage3.setImageURI(data.data)
+                                    if(user!!.profileImage.getOrNull(2) == null)
+                                        user!!.profileImage.add(2, uri.result.toString())
+                                    else
+                                        user!!.profileImage.set(2, uri.result.toString())
+                                }
                             }
                             //Log.e("noob", selectedImageList!!)
 

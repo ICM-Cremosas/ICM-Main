@@ -38,7 +38,7 @@ class UserAdapter(var context:Context,
         holder.itemView.setOnClickListener {
             val bundleUserChat = Bundle()
             bundleUserChat.putString("name", user.name)
-            bundleUserChat.putString("image", user.profileImage)
+            bundleUserChat.putString("image", user.profileImage.get(0))
             bundleUserChat.putString("uid", user.uid)
             navController.navigate(R.id.action_usersActivity_to_chatActivity, bundleUserChat)
         }
