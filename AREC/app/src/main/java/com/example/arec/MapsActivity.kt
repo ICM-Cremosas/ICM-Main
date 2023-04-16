@@ -13,7 +13,6 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -41,6 +40,7 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapsBinding
     private lateinit var latLngUser : LatLng
     var database: FirebaseDatabase? = null
+    private var mapFragment: SupportMapFragment? = null
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -69,15 +69,14 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
                 || super.onOptionsItemSelected(item)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == REQUEST_LOCATION_PERMISSION) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, try to get the user's location again
-                onMapReady(mMap)
+                // Permission granted, initialize the map
+                mapFragment?.getMapAsync(this)
+            } else {
+                // Permission denied, handle it here
+                // You can show a toast or a dialog to inform the user
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -88,7 +87,7 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
         progressDialog = ProgressDialog(requireContext())
         progressDialog?.setMessage("Loading Map...")
         progressDialog?.show()
-        var mapFragment = childFragmentManager.findFragmentByTag("mapFragment") as SupportMapFragment?
+        mapFragment = childFragmentManager.findFragmentByTag("mapFragment") as SupportMapFragment?
         if (mapFragment == null) {
             val transaction = childFragmentManager.beginTransaction()
             val newMapFragment = SupportMapFragment.newInstance()
@@ -96,7 +95,7 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
             transaction.commit()
             mapFragment = newMapFragment
         }
-        mapFragment.getMapAsync(this)
+        mapFragment!!.getMapAsync(this)
     }
 
     private val REQUEST_LOCATION_PERMISSION = 1
@@ -104,14 +103,14 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
         mMap = googleMap
 
         // Check if location permission is granted
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-            == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             // remove these after u have the event dabase done
             val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
             val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
 
             latLngUser = LatLng(location!!.latitude, location!!.longitude)
+
 
 
             // Example usage in your MapsActivity
@@ -161,43 +160,43 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
             // Request location updates
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
 
+            mMap.setOnMarkerClickListener { clickedMarker ->
+                if((clickedMarker.tag as String) != "user") {
+                    val databaseReference = FirebaseDatabase.getInstance().reference.child("events")
+                        .child(clickedMarker.tag as String)
+
+                    databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            // dataSnapshot will contain the data for the child with the specified ID
+                            if (dataSnapshot.exists()) {
+                                // Retrieve the data from the snapshot and perform the desired operations
+                                val event = dataSnapshot.getValue(Event::class.java)
+                                val bundleMapDescription = Bundle()
+                                bundleMapDescription.putString("EventId", event!!.ID)
+                                bundleMapDescription.putBoolean("inside", userInsideEvent(event!!))
+                                findNavController().navigate(
+                                    R.id.action_mapsFragment_to_eventDescription,
+                                    bundleMapDescription
+                                )
+                            } else {
+                                // Child with the specified ID does not exist in the database
+                            }
+                        }
+
+                        override fun onCancelled(databaseError: DatabaseError) {
+                            // Handle any errors that may occur while retrieving the data
+                        }
+                    })
+                    true
+                }
+                else{
+                    false
+                }
+            }
+
         } else {
             // Request location permission
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
-        }
-
-        mMap.setOnMarkerClickListener { clickedMarker ->
-            if((clickedMarker.tag as String) != "user") {
-                val databaseReference = FirebaseDatabase.getInstance().reference.child("events")
-                    .child(clickedMarker.tag as String)
-
-                databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        // dataSnapshot will contain the data for the child with the specified ID
-                        if (dataSnapshot.exists()) {
-                            // Retrieve the data from the snapshot and perform the desired operations
-                            val event = dataSnapshot.getValue(Event::class.java)
-                            val bundleMapDescription = Bundle()
-                            bundleMapDescription.putString("EventId", event!!.ID)
-                            bundleMapDescription.putBoolean("inside", userInsideEvent(event!!))
-                            findNavController().navigate(
-                                R.id.action_mapsFragment_to_eventDescription,
-                                bundleMapDescription
-                            )
-                        } else {
-                            // Child with the specified ID does not exist in the database
-                        }
-                    }
-
-                    override fun onCancelled(databaseError: DatabaseError) {
-                        // Handle any errors that may occur while retrieving the data
-                    }
-                })
-                true
-            }
-            else{
-                false
-            }
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
         }
     }
 
