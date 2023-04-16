@@ -105,7 +105,7 @@ class   Profile : Fragment() {
                                     var currentUserIndex = 0
 
                                     // Update the adapter with the current user data
-                                    val images = listOf(userList[currentUserIndex].profileImage)
+                                    val images = userList[currentUserIndex].profileImage
                                     val adapter = ImagePagerAdapter(images, requireContext())
                                     viewPager.adapter = adapter
                                     binding.profileAge.text = userList[currentUserIndex].age.toString()
@@ -126,7 +126,7 @@ class   Profile : Fragment() {
                                                     currentUserIndex++
                                                     // Update the adapter with the next user data
                                                     val images =
-                                                        listOf(userList[currentUserIndex].profileImage)
+                                                        userList[currentUserIndex].profileImage
                                                     val adapter =
                                                         ImagePagerAdapter(images, requireContext())
                                                     viewPager.adapter = adapter
@@ -145,7 +145,7 @@ class   Profile : Fragment() {
                                                     currentUserIndex++
                                                     // Update the adapter with the next user data
                                                     val images =
-                                                        listOf(userList[currentUserIndex].profileImage)
+                                                        userList[currentUserIndex].profileImage
                                                     val adapter =
                                                         ImagePagerAdapter(images, requireContext())
                                                     viewPager.adapter = adapter
@@ -165,7 +165,7 @@ class   Profile : Fragment() {
                                                     currentUserIndex++
                                                     // Update the adapter with the next user data
                                                     val images =
-                                                        listOf(userList[currentUserIndex].profileImage)
+                                                        userList[currentUserIndex].profileImage
                                                     val adapter =
                                                         ImagePagerAdapter(images, requireContext())
                                                     viewPager.adapter = adapter
@@ -182,7 +182,7 @@ class   Profile : Fragment() {
                                             currentUserIndex++
                                             // Update the adapter with the next user data
                                             val images =
-                                                listOf(userList[currentUserIndex].profileImage)
+                                                userList[currentUserIndex].profileImage
                                             val adapter =
                                                 ImagePagerAdapter(images, requireContext())
                                             viewPager.adapter = adapter
@@ -218,7 +218,7 @@ class   Profile : Fragment() {
                     // dataSnapshot will contain the data for the child with the specified ID
                     if (dataSnapshot.exists()) {
                         val currUser = dataSnapshot.getValue(User::class.java)
-                        val images = listOf(currUser!!.profileImage)
+                        val images = currUser!!.profileImage
                         val adapter = ImagePagerAdapter(images, requireContext())
                         viewPager.adapter = adapter
 

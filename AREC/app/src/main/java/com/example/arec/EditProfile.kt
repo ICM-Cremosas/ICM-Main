@@ -1,6 +1,8 @@
 package com.example.arec
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.SeekBar
 import androidx.databinding.DataBindingUtil
@@ -11,6 +13,8 @@ import com.example.arec.databinding.EditProfileBinding
 import com.example.arec.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.storage.FirebaseStorage
+import java.util.*
 
 class EditProfile : Fragment() {
 
@@ -18,13 +22,14 @@ class EditProfile : Fragment() {
     private lateinit var binding: EditProfileBinding
     private lateinit var databaseReference : DatabaseReference
     private var user : User? = null
+    private val selectedImageList = mutableListOf<String>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<EditProfileBinding>(inflater, R.layout.edit_profile,container,false)
         auth = FirebaseAuth.getInstance()
         binding.butSave.setOnClickListener { view : View ->
             user!!.name = binding.nameEdit.text.toString()
             user!!.description = binding.description.text.toString()
-                    //gets value checked on gender
+            //gets value checked on gender
             when(binding.genderRadioGroup.checkedRadioButtonId)  {
                 R.id.male_radio_button->
                     user!!.gender = "male"
@@ -75,6 +80,28 @@ class EditProfile : Fragment() {
                 if (dataSnapshot.exists()) {
                     // Retrieve the data from the snapshot and perform the desired operations
                     user = dataSnapshot.getValue(User::class.java)
+
+                    binding.profileImage1.setOnClickListener {
+                        val intent = Intent()
+                        intent.action = Intent.ACTION_GET_CONTENT
+                        intent.type = "image/*"
+                        startActivityForResult(intent,45)
+                    }
+
+                    binding.profileImage2.setOnClickListener {
+                        val intent = Intent()
+                        intent.action = Intent.ACTION_GET_CONTENT
+                        intent.type = "image/*"
+                        startActivityForResult(intent,46)
+                    }
+
+                    binding.profileImage3.setOnClickListener {
+                        val intent = Intent()
+                        intent.action = Intent.ACTION_GET_CONTENT
+                        intent.type = "image/*"
+                        startActivityForResult(intent,47)
+                    }
+
                     binding.description.setText(user!!.description)
                     binding.nameEdit.setText(user!!.name)
                     when(user!!.gender)  {
@@ -129,5 +156,42 @@ class EditProfile : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
                 || super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            if(data.data != null) {
+                val uri = data.data // filePath
+                val storage = FirebaseStorage.getInstance()
+                val time = Date().time
+                val reference = storage.reference
+                    .child("Profile")
+                    .child(time.toString() + "")
+                reference.putFile(uri!!).addOnCompleteListener { task ->
+                    if(task.isSuccessful) {
+                        reference.downloadUrl.addOnCompleteListener{ uri ->
+                            selectedImageList.add(uri.result.toString())
+                            when (requestCode) {
+                                45 -> { binding!!.profileImage1.setImageURI(data.data)
+                                    user!!.profileImage.add(0, uri.result.toString()) }
+                                46 -> { binding!!.profileImage2.setImageURI(data.data)
+                                    user!!.profileImage.add(1, uri.result.toString()) }
+                                else -> { binding!!.profileImage3.setImageURI(data.data)
+                                    user!!.profileImage.add(2, uri.result.toString()) }
+                            }
+                            //Log.e("noob", selectedImageList!!)
+
+                        }
+                    }
+                    else
+                        Log.e("noob", "n deu??")
+                }
+
+
+
+
+            }
+        }
     }
 }

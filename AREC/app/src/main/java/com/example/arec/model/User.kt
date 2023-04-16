@@ -4,7 +4,7 @@ class User {
     var name: String? = null
     var phoneNumber: String? = null
     var uid: String? = null
-    var profileImage:String? = null
+    var profileImage = mutableListOf<String>()
     var age: Int? = 0
     var gender: String? = ""
     var show : String? = ""
@@ -22,6 +22,6 @@ class User {
         this.gender = gender
         this.show = show
         this.description = description
-        this.profileImage = profileImage
+        this.profileImage.add(profileImage!!)
     }
 }
