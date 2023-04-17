@@ -1,5 +1,10 @@
 # Spark
-## User's numebers to test app with and respectiv Code:
+## Before Running:
+Add the following line to ***local.properties*** file:
+
+	MAPS_API_KEY=AIzaSyCcUh0axYB6L7XWXR8z4FBUq6Qq5jVVYS8
+	
+## User's numebers to test app with and respective Code:
 
 	+351 111 111 111 -> code 111 111
 	+351 222 222 222 -> code 222 222
