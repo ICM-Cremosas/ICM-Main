@@ -143,6 +143,7 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
                     //add the marker for the user and event
                     userMaker = mMap.addMarker(MarkerOptions().position(latLngUser).title("User").icon(icon))
                     userMaker!!.tag = "user"
+                    userMaker!!.zIndex = 0f // Set the zIndex value to a lower value
 
                     if (progressDialog?.isShowing == true) {
                         progressDialog?.dismiss()

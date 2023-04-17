@@ -52,7 +52,8 @@ class OTP : Fragment() {
                 }
 
                 override fun onVerificationFailed(p0: FirebaseException) {
-                    TODO("Not yet implemented")
+                    Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
+                    view?.findNavController()?.navigate(R.id.action_OTP_to_login)
                 }
 
                 override fun onCodeSent(verifyId: String, forceResendingToken: PhoneAuthProvider.ForceResendingToken) {

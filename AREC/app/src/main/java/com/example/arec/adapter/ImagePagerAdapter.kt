@@ -19,7 +19,7 @@ class ImagePagerAdapter(private val imageUrls: List<String?>, private val contex
 
         Glide.with(context)
             .load(imageUrls[position])
-            .placeholder(R.drawable.placeholder)
+            .placeholder(R.drawable.ic_loading)
             .into(imageView)
 
         // Add padding to the top and bottom of the image to create vertical orientation

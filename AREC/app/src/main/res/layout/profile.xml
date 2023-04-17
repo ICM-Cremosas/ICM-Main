@@ -24,7 +24,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.24"
                 app:layout_constraintStart_toStartOf="@+id/view_pager"
-                app:srcCompat="@drawable/ic_add" />
+                app:srcCompat="@drawable/ic_cross" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/but_like"
@@ -45,9 +45,8 @@
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="733dp"
-                android:layout_marginTop="4dp"
-                android:orientation="vertical"
                 android:contentDescription="@string/imagens_de_profile"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"

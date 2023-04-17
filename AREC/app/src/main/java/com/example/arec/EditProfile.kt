@@ -2,9 +2,9 @@ package com.example.arec
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -127,17 +127,17 @@ class EditProfile : Fragment() {
                     }
                     Glide.with(context!!)
                         .load(user!!.profileImage.getOrNull(0))
-                        .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.avatar)
                         .into(binding.profileImage1)
 
                     Glide.with(context!!)
                         .load(user!!.profileImage.getOrNull(1))
-                        .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.avatar)
                         .into(binding.profileImage2)
 
                     Glide.with(context!!)
                         .load(user!!.profileImage.getOrNull(2))
-                        .placeholder(R.drawable.placeholder)
+                        .placeholder(R.drawable.avatar)
                         .into(binding.profileImage3)
 
 
@@ -213,7 +213,7 @@ class EditProfile : Fragment() {
                         }
                     }
                     else
-                        Log.e("noob", "n deu??")
+                        Toast.makeText(requireContext(), "Couldn't load image try again.", Toast.LENGTH_SHORT).show()
                 }
 
 

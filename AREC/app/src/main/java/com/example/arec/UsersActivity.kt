@@ -1,6 +1,5 @@
 package com.example.arec
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -25,15 +24,10 @@ class UsersActivity : Fragment() {
     var database: FirebaseDatabase? = null
     var users: ArrayList<User>? = null
     var usersAdapter: UserAdapter? = null
-    var dialog: ProgressDialog? = null
     var userLogged: User? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<UsersBinding>(inflater, R.layout.users,container,false)
-
-        dialog = ProgressDialog(requireContext())
-        dialog!!.setMessage("Uploading Image...")
-        dialog!!.setCancelable(false)
         database = FirebaseDatabase.getInstance()
         users = ArrayList<User>()
         usersAdapter = UserAdapter(requireContext(), users!!, findNavController())
