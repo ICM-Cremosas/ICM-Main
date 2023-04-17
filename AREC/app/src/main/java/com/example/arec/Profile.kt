@@ -3,6 +3,7 @@ package com.example.arec
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -101,7 +102,7 @@ class   Profile : Fragment() {
                                     val avatarResourceId = R.drawable.avatar
                                     val avatarUrl = "android.resource://" + context!!.packageName + "/" + avatarResourceId
 
-                                    userList.add(User("", "", "", 0, "", "", "" ,avatarUrl))
+                                    userList.add(User("No users in the event:", "", "0", 0, "", "", "" ,avatarUrl))
                                     var currentUserIndex = 0
 
                                     // Update the adapter with the current user data
@@ -116,64 +117,44 @@ class   Profile : Fragment() {
                                     // Handle button click events
                                     binding.butLike.setOnClickListener {
                                         // Move to the next user when Like button is clicked
-                                        if(userLogged.likedYou.contains(userList[currentUserIndex].uid) and !userLogged.matched.contains(userList[currentUserIndex].uid!!)) {
+                                        if(userLogged.likedYou.contains(userList[currentUserIndex].uid) && !userLogged.matched.contains(userList[currentUserIndex].uid!!)
+                                            && userList[currentUserIndex].uid != "0") {
                                             userLogged.matched.add(userList[currentUserIndex].uid!!)
                                             var userReference =
-                                                FirebaseDatabase.getInstance().reference.child("users")
-                                                    .child(userLogged.uid!!)
+                                                FirebaseDatabase.getInstance().reference.child("users").child(userLogged.uid!!)
                                             userReference.setValue(userLogged)
-                                                .addOnSuccessListener {
-                                                    currentUserIndex++
-                                                    // Update the adapter with the next user data
-                                                    val images =
-                                                        userList[currentUserIndex].profileImage
-                                                    val adapter =
-                                                        ImagePagerAdapter(images, requireContext())
-                                                    viewPager.adapter = adapter
-                                                    binding.profileAge.text = userList[currentUserIndex].age.toString()
-                                                    binding.profileName.text = userList[currentUserIndex].name
-                                                    binding.profileDescription.text = userList[currentUserIndex].description
-                                                    binding.profileGender.text = userList[currentUserIndex].gender
-                                                }
 
                                             userList[currentUserIndex].matched.add(userLogged.uid!!)
                                             userReference =
                                                 FirebaseDatabase.getInstance().reference.child("users")
                                                     .child(userList[currentUserIndex].uid!!)
                                             userReference.setValue(userList[currentUserIndex])
-                                                .addOnSuccessListener {
-                                                    currentUserIndex++
-                                                    // Update the adapter with the next user data
-                                                    val images =
-                                                        userList[currentUserIndex].profileImage
-                                                    val adapter =
-                                                        ImagePagerAdapter(images, requireContext())
-                                                    viewPager.adapter = adapter
-                                                    binding.profileAge.text = userList[currentUserIndex].age.toString()
-                                                    binding.profileName.text = userList[currentUserIndex].name
-                                                    binding.profileDescription.text = userList[currentUserIndex].description
-                                                    binding.profileGender.text = userList[currentUserIndex].gender
-                                                }
+                                                .addOnSuccessListener {}
                                         }
-                                        else if(!userList[currentUserIndex].likedYou.contains(userLogged.uid!!)){
+                                        else if(!userList[currentUserIndex].likedYou.contains(userLogged.uid!!) && userList[currentUserIndex].uid != "0"){
                                             userList[currentUserIndex].likedYou.add(userLogged.uid!!)
                                             val userReference =
                                                 FirebaseDatabase.getInstance().reference.child("users")
                                                     .child(userList[currentUserIndex].uid!!)
                                             userReference.setValue(userList[currentUserIndex])
-                                                .addOnSuccessListener {
-                                                    currentUserIndex++
-                                                    // Update the adapter with the next user data
-                                                    val images =
-                                                        userList[currentUserIndex].profileImage
-                                                    val adapter =
-                                                        ImagePagerAdapter(images, requireContext())
-                                                    viewPager.adapter = adapter
-                                                    binding.profileAge.text = userList[currentUserIndex].age.toString()
-                                                    binding.profileName.text = userList[currentUserIndex].name
-                                                    binding.profileDescription.text = userList[currentUserIndex].description
-                                                    binding.profileGender.text = userList[currentUserIndex].gender
-                                                }
+
+                                        }
+                                        if(currentUserIndex < userList.size -1){
+                                            currentUserIndex++
+                                            // Update the adapter with the next user data
+                                            val images =
+                                                userList[currentUserIndex].profileImage
+                                            val adapter =
+                                                ImagePagerAdapter(images, requireContext())
+                                            viewPager.adapter = adapter
+                                            binding.profileAge.text = userList[currentUserIndex].age.toString()
+                                            binding.profileName.text = userList[currentUserIndex].name
+                                            binding.profileDescription.text = userList[currentUserIndex].description
+                                            binding.profileGender.text = userList[currentUserIndex].gender
+                                        }
+                                        else{
+                                            Toast.makeText(requireContext(), "No users on the Event Try again Later!", Toast.LENGTH_SHORT).show()
+                                            binding.profileAge.setVisibility(View.GONE)
                                         }
                                     }
                                     binding.butDislike.setOnClickListener {
@@ -190,7 +171,10 @@ class   Profile : Fragment() {
                                             binding.profileName.text = userList[currentUserIndex].name
                                             binding.profileDescription.text = userList[currentUserIndex].description
                                             binding.profileGender.text = userList[currentUserIndex].gender
-
+                                        }
+                                        else{
+                                            Toast.makeText(requireContext(), "No users on the Event Try again Later!", Toast.LENGTH_SHORT).show()
+                                            binding.profileAge.setVisibility(View.GONE)
                                         }
                                     }
 

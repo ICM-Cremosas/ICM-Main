@@ -31,20 +31,34 @@ class CreateEvent : Fragment() {
         val latlng = arguments?.getParcelable<LatLng>("LatLngUser")
         if (latlng != null){
             binding.butCreateEvent.setOnClickListener {
-                val eventName = binding.eventName.text.toString()
-                val radius = binding.eventRadius.text.toString().toDouble()
-                val duration = binding.eventDuration.text.toString().toDouble()
-                val totalParticipants = binding.eventParticipants.text.toString().toInt()
-                val randomKey = database!!.reference.push().key
-                val event = Event(eventName, randomKey!! , FirebaseAuth.getInstance().uid!!, radius, latlng, duration, totalParticipants)
-
-                database!!.reference
-                    .child("events")
-                    .child(randomKey!!)
-                    .setValue(event)
-                    .addOnCompleteListener {
-                        view?.findNavController()?.navigate(R.id.action_createEvent_to_mapsFragment)
-                    }
+                if(binding.eventName.text.toString().isEmpty()){
+                    binding.eventName.setError("Please type a name")
+                }
+                if(binding.eventRadius.text.toString().isEmpty()){
+                    binding.eventRadius.setError("Please type a radius")
+                }
+                if(binding.eventDuration.text.toString().isEmpty()){
+                    binding.eventDuration.setError("Please type a duration")
+                }
+                if(binding.eventParticipants.text.toString().isEmpty()){
+                    binding.eventParticipants.setError("Please type a totalParticipants")
+                }
+                if(!(binding.eventName.text.toString().isEmpty() || binding.eventRadius.text.toString().isEmpty()
+                    || binding.eventDuration.text.toString().isEmpty() || binding.eventParticipants.text.toString().isEmpty())) {
+                    val eventName = binding.eventName.text.toString()
+                    val radius = binding.eventRadius.text.toString().toDouble()
+                    val duration = binding.eventDuration.text.toString().toDouble()
+                    val totalParticipants = binding.eventParticipants.text.toString().toInt()
+                    val randomKey = database!!.reference.push().key
+                    val event = Event(eventName, randomKey!!, FirebaseAuth.getInstance().uid!!, radius, latlng, duration, totalParticipants)
+                    database!!.reference
+                        .child("events")
+                        .child(randomKey!!)
+                        .setValue(event)
+                        .addOnCompleteListener {
+                            view?.findNavController()?.navigate(R.id.action_createEvent_to_mapsFragment)
+                        }
+                }
             }
         }
     }
