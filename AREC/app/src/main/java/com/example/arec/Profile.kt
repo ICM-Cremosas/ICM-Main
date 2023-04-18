@@ -99,9 +99,10 @@ class   Profile : Fragment() {
                                                     userList.add(user)
                                         Log.e("noob", userList.toString()   )
                                     }
-
+                                    
                                     val avatarResourceId = R.drawable.avatar
-                                    val avatarUrl = "android.resource://" + context!!.packageName + "/" + avatarResourceId
+                                    val avatarUrl = "android.resource://" + requireContext().packageName + "/" + avatarResourceId
+
 
                                     userList.add(User("No users in the event:", "", "0", 0, "", "", "" ,avatarUrl))
 
