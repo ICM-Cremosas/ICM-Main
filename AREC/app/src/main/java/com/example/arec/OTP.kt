@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 
 class OTP : Fragment() {
 
-    private lateinit var verificationId: String
+    private var verificationId: String = ""
     private lateinit var otpView: OtpView
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference

@@ -41,6 +41,7 @@ class   Profile : Fragment() {
         auth = FirebaseAuth.getInstance()
 
         val source = arguments?.getString("source")
+        binding.noUser.setVisibility(View.GONE)
         if (source == "joinedEvent") {
             binding.butEdit.setVisibility(View.GONE)
             binding.logoutAccount.setVisibility(View.GONE)
@@ -88,6 +89,7 @@ class   Profile : Fragment() {
                                         }
                                         Log.e("noob", userList.toString())
                                     }
+
                                     for (snapshot1 in snapshot.children) {
                                         val user = snapshot1.getValue(User::class.java)
                                         if (event!!.participants.contains(user!!.uid))
@@ -96,91 +98,103 @@ class   Profile : Fragment() {
                                                     userLogged.show.equals("females") && user.gender == "female" ||
                                                     userLogged.show.equals("everyone") ||
                                                     userLogged.show.equals("everyone") && user.gender =="other")
-                                                    userList.add(0, user)
+                                                    userList.add(user)
                                         Log.e("noob", userList.toString()   )
                                     }
-                                    
-                                    val avatarResourceId = R.drawable.avatar
-                                    val avatarUrl = "android.resource://" + requireContext().packageName + "/" + avatarResourceId
 
-
-                                    userList.add(User("No users in the event:", "", "0", 0, "", "", "" ,avatarUrl))
-
-
-                                    // Update the adapter with the current user data
-                                    val images = userList[currentUserIndex].profileImage
-                                    val adapter = ImagePagerAdapter(images, requireContext())
-                                    viewPager.adapter = adapter
-                                    binding.profileAge.text = userList[currentUserIndex].age.toString()
-                                    binding.profileName.text = userList[currentUserIndex].name
-                                    binding.profileDescription.text = userList[currentUserIndex].description
-                                    binding.profileGender.text = userList[currentUserIndex].gender
-
-                                    // Handle button click events
-                                    binding.butLike.setOnClickListener {
-                                        // Move to the next user when Like button is clicked
-                                        if(userLogged.likedYou.contains(userList[currentUserIndex].uid) && !userLogged.matched.contains(userList[currentUserIndex].uid!!)
-                                            && userList[currentUserIndex].uid != "0") {
-                                            userLogged.matched.add(userList[currentUserIndex].uid!!)
-                                            var userReference =
-                                                FirebaseDatabase.getInstance().reference.child("users").child(userLogged.uid!!)
-                                            userReference.setValue(userLogged)
-
-                                            userList[currentUserIndex].matched.add(userLogged.uid!!)
-                                            userReference =
-                                                FirebaseDatabase.getInstance().reference.child("users")
-                                                    .child(userList[currentUserIndex].uid!!)
-                                            userReference.setValue(userList[currentUserIndex])
-                                                .addOnSuccessListener {}
-                                        }
-                                        else if(!userList[currentUserIndex].likedYou.contains(userLogged.uid!!) && userList[currentUserIndex].uid != "0"){
-                                            userList[currentUserIndex].likedYou.add(userLogged.uid!!)
-                                            val userReference =
-                                                FirebaseDatabase.getInstance().reference.child("users")
-                                                    .child(userList[currentUserIndex].uid!!)
-                                            userReference.setValue(userList[currentUserIndex])
-
-                                        }
-                                        if(currentUserIndex < userList.size -1){
-                                            currentUserIndex++
-                                            // Update the adapter with the next user data
-                                            val images =
-                                                userList[currentUserIndex].profileImage
-                                            val adapter =
-                                                ImagePagerAdapter(images, requireContext())
-                                            viewPager.adapter = adapter
-                                            binding.profileAge.text = userList[currentUserIndex].age.toString()
-                                            binding.profileName.text = userList[currentUserIndex].name
-                                            binding.profileDescription.text = userList[currentUserIndex].description
-                                            binding.profileGender.text = userList[currentUserIndex].gender
-                                        }
-                                        else{
-                                            Toast.makeText(requireContext(), "No users on the Event Try again Later!", Toast.LENGTH_SHORT).show()
-                                            binding.profileAge.setVisibility(View.GONE)
-                                        }
+                                    if(userList.size == 0){
+                                       noMoreUsers()
                                     }
-                                    binding.butDislike.setOnClickListener {
-                                        // Move to the next user when Dislike button is clicked
-                                        if (currentUserIndex < userList.size - 1) {
-                                            currentUserIndex++
-                                            // Update the adapter with the next user data
-                                            val images =
-                                                userList[currentUserIndex].profileImage
-                                            val adapter =
-                                                ImagePagerAdapter(images, requireContext())
-                                            viewPager.adapter = adapter
-                                            binding.profileAge.text = userList[currentUserIndex].age.toString()
-                                            binding.profileName.text = userList[currentUserIndex].name
-                                            binding.profileDescription.text = userList[currentUserIndex].description
-                                            binding.profileGender.text = userList[currentUserIndex].gender
+                                    else {
+                                        noMoreUsers()
+
+                                        // Update the adapter with the current user data
+                                        val images = userList[currentUserIndex].profileImage
+                                        val adapter = ImagePagerAdapter(images, requireContext())
+                                        viewPager.adapter = adapter
+                                        binding.profileAge.text =
+                                            userList[currentUserIndex].age.toString()
+                                        binding.profileName.text = userList[currentUserIndex].name
+                                        binding.profileDescription.text =
+                                            userList[currentUserIndex].description
+                                        binding.profileGender.text =
+                                            userList[currentUserIndex].gender
+
+                                        // Handle button click events
+                                        binding.butLike.setOnClickListener {
+                                            // Move to the next user when Like button is clicked
+                                            if (userLogged.likedYou.contains(userList[currentUserIndex].uid) && !userLogged.matched.contains(
+                                                    userList[currentUserIndex].uid!!
+                                                )
+                                                && userList[currentUserIndex].uid != "0"
+                                            ) {
+                                                userLogged.matched.add(userList[currentUserIndex].uid!!)
+                                                var userReference =
+                                                    FirebaseDatabase.getInstance().reference.child("users")
+                                                        .child(userLogged.uid!!)
+                                                userReference.setValue(userLogged)
+
+                                                userList[currentUserIndex].matched.add(userLogged.uid!!)
+                                                userReference =
+                                                    FirebaseDatabase.getInstance().reference.child("users")
+                                                        .child(userList[currentUserIndex].uid!!)
+                                                userReference.setValue(userList[currentUserIndex])
+                                                    .addOnSuccessListener {}
+                                            } else if (!userList[currentUserIndex].likedYou.contains(
+                                                    userLogged.uid!!
+                                                ) && userList[currentUserIndex].uid != "0"
+                                            ) {
+                                                userList[currentUserIndex].likedYou.add(userLogged.uid!!)
+                                                val userReference =
+                                                    FirebaseDatabase.getInstance().reference.child("users")
+                                                        .child(userList[currentUserIndex].uid!!)
+                                                userReference.setValue(userList[currentUserIndex])
+
+                                            }
+                                            if (currentUserIndex < userList.size - 1) {
+                                                currentUserIndex++
+                                                // Update the adapter with the next user data
+                                                val images =
+                                                    userList[currentUserIndex].profileImage
+                                                val adapter =
+                                                    ImagePagerAdapter(images, requireContext())
+                                                viewPager.adapter = adapter
+                                                binding.profileAge.text =
+                                                    userList[currentUserIndex].age.toString()
+                                                binding.profileName.text =
+                                                    userList[currentUserIndex].name
+                                                binding.profileDescription.text =
+                                                    userList[currentUserIndex].description
+                                                binding.profileGender.text =
+                                                    userList[currentUserIndex].gender
+                                            } else {
+                                                noMoreUsers()
+                                            }
                                         }
-                                        else{
-                                            Toast.makeText(requireContext(), "No users on the Event Try again Later!", Toast.LENGTH_SHORT).show()
-                                            binding.profileAge.setVisibility(View.GONE)
+                                        binding.butDislike.setOnClickListener {
+                                            // Move to the next user when Dislike button is clicked
+                                            if (currentUserIndex < userList.size - 1) {
+                                                currentUserIndex++
+                                                // Update the adapter with the next user data
+                                                val images =
+                                                    userList[currentUserIndex].profileImage
+                                                val adapter =
+                                                    ImagePagerAdapter(images, requireContext())
+                                                viewPager.adapter = adapter
+                                                binding.profileAge.text =
+                                                    userList[currentUserIndex].age.toString()
+                                                binding.profileName.text =
+                                                    userList[currentUserIndex].name
+                                                binding.profileDescription.text =
+                                                    userList[currentUserIndex].description
+                                                binding.profileGender.text =
+                                                    userList[currentUserIndex].gender
+                                            } else {
+                                                noMoreUsers()
+                                            }
                                         }
+
                                     }
-
-
                                 }
 
                                 override fun onCancelled(error: DatabaseError) {}
@@ -235,5 +249,33 @@ class   Profile : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
                 || super.onOptionsItemSelected(item)
+    }
+
+    fun noMoreUsers(){
+        // Access the root view of the layout
+        binding.noUser.setVisibility(View.VISIBLE)
+        binding.profileAge.setVisibility(View.GONE)
+        binding.butEdit.setVisibility(View.GONE)
+        binding.logoutAccount.setVisibility(View.GONE)
+        binding.butDislike.setVisibility(View.GONE)
+        binding.butLike.setVisibility(View.GONE)
+        binding.profileName.setVisibility(View.GONE)
+        binding.viewPager.setVisibility(View.GONE)
+        binding.profileDescription.setVisibility(View.GONE)
+        binding.profileGender.setVisibility(View.GONE)
+    }
+
+    fun MoreUsers(){
+        // Access the root view of the layout
+        binding.noUser.setVisibility(View.GONE)
+        binding.profileAge.setVisibility(View.VISIBLE)
+        binding.butEdit.setVisibility(View.VISIBLE)
+        binding.logoutAccount.setVisibility(View.VISIBLE)
+        binding.butDislike.setVisibility(View.VISIBLE)
+        binding.butLike.setVisibility(View.VISIBLE)
+        binding.profileName.setVisibility(View.VISIBLE)
+        binding.viewPager.setVisibility(View.VISIBLE)
+        binding.profileDescription.setVisibility(View.VISIBLE)
+        binding.profileGender.setVisibility(View.VISIBLE)
     }
 }
