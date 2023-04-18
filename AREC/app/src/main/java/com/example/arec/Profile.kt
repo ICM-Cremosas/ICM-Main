@@ -67,6 +67,7 @@ class   Profile : Fragment() {
             val eventID = arguments?.getString("EventId")
             val databaseReference =
                 FirebaseDatabase.getInstance().reference.child("events").child(eventID!!)
+            var currentUserIndex = 0
 
             databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -103,7 +104,7 @@ class   Profile : Fragment() {
                                     val avatarUrl = "android.resource://" + context!!.packageName + "/" + avatarResourceId
 
                                     userList.add(User("No users in the event:", "", "0", 0, "", "", "" ,avatarUrl))
-                                    var currentUserIndex = 0
+
 
                                     // Update the adapter with the current user data
                                     val images = userList[currentUserIndex].profileImage
