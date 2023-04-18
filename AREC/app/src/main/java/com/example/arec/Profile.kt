@@ -80,7 +80,6 @@ class   Profile : Fragment() {
                         FirebaseDatabase.getInstance().reference.child("users")
                             .addValueEventListener(object : ValueEventListener {
                                 override fun onDataChange(snapshot: DataSnapshot) {
-                                    userList.clear()
                                     for (snapshot1 in snapshot.children) {
                                         val user = snapshot1.getValue(User::class.java)
                                         if(user!!.uid == auth.currentUser?.uid!!) {
@@ -92,8 +91,8 @@ class   Profile : Fragment() {
 
                                     for (snapshot1 in snapshot.children) {
                                         val user = snapshot1.getValue(User::class.java)
-                                        if (event!!.participants.contains(user!!.uid))
-                                            if(user!!.uid != auth.currentUser?.uid!!)
+                                        if (event!!.participants.contains(user!!.uid) )
+                                            if(user!!.uid != auth.currentUser?.uid!! && !userList.contains(user))
                                                 if(userLogged.show.equals("males") && user.gender == "male" ||
                                                     userLogged.show.equals("females") && user.gender == "female" ||
                                                     userLogged.show.equals("everyone") ||
@@ -106,7 +105,7 @@ class   Profile : Fragment() {
                                        noMoreUsers()
                                     }
                                     else {
-                                        noMoreUsers()
+                                        MoreUsers()
 
                                         // Update the adapter with the current user data
                                         val images = userList[currentUserIndex].profileImage
@@ -140,10 +139,7 @@ class   Profile : Fragment() {
                                                         .child(userList[currentUserIndex].uid!!)
                                                 userReference.setValue(userList[currentUserIndex])
                                                     .addOnSuccessListener {}
-                                            } else if (!userList[currentUserIndex].likedYou.contains(
-                                                    userLogged.uid!!
-                                                ) && userList[currentUserIndex].uid != "0"
-                                            ) {
+                                            } else if (!userList[currentUserIndex].likedYou.contains(userLogged.uid!!)) {
                                                 userList[currentUserIndex].likedYou.add(userLogged.uid!!)
                                                 val userReference =
                                                     FirebaseDatabase.getInstance().reference.child("users")
@@ -269,8 +265,6 @@ class   Profile : Fragment() {
         // Access the root view of the layout
         binding.noUser.setVisibility(View.GONE)
         binding.profileAge.setVisibility(View.VISIBLE)
-        binding.butEdit.setVisibility(View.VISIBLE)
-        binding.logoutAccount.setVisibility(View.VISIBLE)
         binding.butDislike.setVisibility(View.VISIBLE)
         binding.butLike.setVisibility(View.VISIBLE)
         binding.profileName.setVisibility(View.VISIBLE)
