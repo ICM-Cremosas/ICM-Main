@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -108,6 +109,14 @@ class Register : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        val builder = AlertDialog.Builder(requireContext()  )
+        val view = LayoutInflater.from(requireContext()).inflate(R.layout.progress_bar, null)
+        builder.setView(view)
+        builder.setCancelable(false)
+        val dialog = builder.create()
+        dialog.show()
+
         if (data != null) {
             if(data.data != null) {
                 val uri = data.data // filePath
@@ -120,6 +129,7 @@ class Register : Fragment() {
                     if(task.isSuccessful) {
                         reference.downloadUrl.addOnCompleteListener{ uri ->
                             selectedImage = uri.result.toString()
+                            dialog.dismiss()
                             Log.e("noob", selectedImage!!)
 
                         }
