@@ -96,7 +96,7 @@ class   Profile : Fragment() {
                                                     userLogged.show.equals("females") && user.gender == "female" ||
                                                     userLogged.show.equals("everyone") ||
                                                     userLogged.show.equals("everyone") && user.gender =="other")
-                                                    userList.add(user)
+                                                    userList.add(0, user)
                                         Log.e("noob", userList.toString()   )
                                     }
                                     
