@@ -92,7 +92,7 @@ class   Profile : Fragment() {
                                     for (snapshot1 in snapshot.children) {
                                         val user = snapshot1.getValue(User::class.java)
                                         if (event!!.participants.contains(user!!.uid) )
-                                            if(user!!.uid != auth.currentUser?.uid!! && !userList.contains(user))
+                                            if(user!!.uid != auth.currentUser?.uid!! && !(userList.contains(user)))
                                                 if(userLogged.show.equals("males") && user.gender == "male" ||
                                                     userLogged.show.equals("females") && user.gender == "female" ||
                                                     userLogged.show.equals("everyone") ||

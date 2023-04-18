@@ -12,6 +12,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -34,7 +35,7 @@ import com.google.firebase.database.ValueEventListener
 
 class MapsActivity : Fragment(), OnMapReadyCallback {
 
-    private var progressDialog: ProgressDialog? = null
+    private lateinit var dialog: AlertDialog
     private lateinit var mMap: GoogleMap
     private var userMaker : Marker? = null
     private lateinit var binding: ActivityMapsBinding
@@ -84,9 +85,12 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        progressDialog = ProgressDialog(requireContext())
-        progressDialog?.setMessage("Loading Map...")
-        progressDialog?.show()
+        val builder = AlertDialog.Builder(requireContext())
+        val view = LayoutInflater.from(requireContext()).inflate(R.layout.progress_bar, null)
+        builder.setView(view)
+        builder.setCancelable(false)
+        dialog = builder.create()
+        dialog.show()
         mapFragment = childFragmentManager.findFragmentByTag("mapFragment") as SupportMapFragment?
         if (mapFragment == null) {
             val transaction = childFragmentManager.beginTransaction()
@@ -108,90 +112,107 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
             // remove these after u have the event dabase done
             val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
             val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            if(location != null) {
+                latLngUser = LatLng(location.latitude, location.longitude)
 
-            latLngUser = LatLng(location!!.latitude, location!!.longitude)
 
+                // Example usage in your MapsActivity
+                val icon = BitmapDescriptorFactory.fromBitmap(
+                    getBitmapFromVectorDrawable(
+                        requireContext(),
+                        R.drawable.ic_person_map
+                    )
+                )
+                var userMaker =
+                    mMap.addMarker(MarkerOptions().position(latLngUser).title("User").icon(icon))
 
-
-            // Example usage in your MapsActivity
-            val icon = BitmapDescriptorFactory.fromBitmap(getBitmapFromVectorDrawable(requireContext(), R.drawable.ic_person_map))
-            var userMaker = mMap.addMarker(MarkerOptions().position(latLngUser).title("User").icon(icon))
-
-            database!!.reference.child("events")
-                .addValueEventListener(object :
-                ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    mMap.clear()
-                    for(snapshot1 in snapshot.children) {
-                        val event: Event? = snapshot1.getValue(Event::class.java)
-                        createEventMarker(event!!)
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {}
-
-            })
-            // Set up the location listener to move the marker
-            val locationListener = object : LocationListener {
-                override fun onLocationChanged(location: Location) {
-                    // Update the marker position User from the location of the callback
-                    latLngUser = LatLng(location.latitude, location.longitude)
-
-                    //clear preivious markers
-                    userMaker?.remove()
-
-                    //add the marker for the user and event
-                    userMaker = mMap.addMarker(MarkerOptions().position(latLngUser).title("User").icon(icon))
-                    userMaker!!.tag = "user"
-                    userMaker!!.zIndex = 0f // Set the zIndex value to a lower value
-
-                    if (progressDialog?.isShowing == true) {
-                        progressDialog?.dismiss()
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngUser, 15f))
-                    }
-
-                }
-
-                //perceber melhor para que que isto serve
-                override fun onProviderEnabled(provider: String) {}
-                override fun onProviderDisabled(provider: String) {}
-                override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
-            }
-
-            // Request location updates
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0f, locationListener)
-
-            mMap.setOnMarkerClickListener { clickedMarker ->
-                if((clickedMarker.tag as String) != "user") {
-                    val databaseReference = FirebaseDatabase.getInstance().reference.child("events")
-                        .child(clickedMarker.tag as String)
-
-                    databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
-                        override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            // dataSnapshot will contain the data for the child with the specified ID
-                            if (dataSnapshot.exists()) {
-                                // Retrieve the data from the snapshot and perform the desired operations
-                                val event = dataSnapshot.getValue(Event::class.java)
-                                val bundleMapDescription = Bundle()
-                                bundleMapDescription.putString("EventId", event!!.ID)
-                                bundleMapDescription.putBoolean("inside", userInsideEvent(event!!))
-                                findNavController().navigate(
-                                    R.id.action_mapsFragment_to_eventDescription,
-                                    bundleMapDescription
-                                )
-                            } else {
-                                // Child with the specified ID does not exist in the database
+                database!!.reference.child("events")
+                    .addValueEventListener(object :
+                        ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            mMap.clear()
+                            for (snapshot1 in snapshot.children) {
+                                val event: Event? = snapshot1.getValue(Event::class.java)
+                                createEventMarker(event!!)
                             }
                         }
 
-                        override fun onCancelled(databaseError: DatabaseError) {
-                            // Handle any errors that may occur while retrieving the data
-                        }
+                        override fun onCancelled(error: DatabaseError) {}
+
                     })
-                    true
+                // Set up the location listener to move the marker
+                val locationListener = object : LocationListener {
+                    override fun onLocationChanged(location: Location) {
+                        // Update the marker position User from the location of the callback
+                        latLngUser = LatLng(location.latitude, location.longitude)
+
+                        //clear preivious markers
+                        userMaker?.remove()
+
+                        //add the marker for the user and event
+                        userMaker = mMap.addMarker(
+                            MarkerOptions().position(latLngUser).title("User").icon(icon)
+                        )
+                        userMaker!!.tag = "user"
+                        userMaker!!.zIndex = 0f // Set the zIndex value to a lower value
+
+                        if (dialog.isShowing == true) {
+                            dialog.dismiss()
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLngUser, 15f))
+                        }
+
+                    }
+
+                    //perceber melhor para que que isto serve
+                    override fun onProviderEnabled(provider: String) {}
+                    override fun onProviderDisabled(provider: String) {}
+                    override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
                 }
-                else{
-                    false
+
+                // Request location updates
+                locationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    0,
+                    0f,
+                    locationListener
+                )
+
+                mMap.setOnMarkerClickListener { clickedMarker ->
+                    if ((clickedMarker.tag as String) != "user") {
+                        val databaseReference =
+                            FirebaseDatabase.getInstance().reference.child("events")
+                                .child(clickedMarker.tag as String)
+
+                        databaseReference.addListenerForSingleValueEvent(object :
+                            ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                // dataSnapshot will contain the data for the child with the specified ID
+                                if (dataSnapshot.exists()) {
+                                    // Retrieve the data from the snapshot and perform the desired operations
+                                    val event = dataSnapshot.getValue(Event::class.java)
+                                    val bundleMapDescription = Bundle()
+                                    bundleMapDescription.putString("EventId", event!!.ID)
+                                    bundleMapDescription.putBoolean(
+                                        "inside",
+                                        userInsideEvent(event!!)
+                                    )
+                                    findNavController().navigate(
+                                        R.id.action_mapsFragment_to_eventDescription,
+                                        bundleMapDescription
+                                    )
+                                } else {
+                                    // Child with the specified ID does not exist in the database
+                                }
+                            }
+
+                            override fun onCancelled(databaseError: DatabaseError) {
+                                // Handle any errors that may occur while retrieving the data
+                            }
+                        })
+                        true
+                    } else {
+                        false
+                    }
                 }
             }
 
