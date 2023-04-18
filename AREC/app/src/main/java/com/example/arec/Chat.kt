@@ -13,7 +13,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.arec.adapter.MessageAdapter
+import com.example.arec.model.adapter.MessageAdapter
 import com.example.arec.databinding.ChatBinding
 import com.example.arec.model.Message
 import com.google.firebase.auth.FirebaseAuth

@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.viewpager.widget.ViewPager
-import com.example.arec.adapter.ImagePagerAdapter
+import com.example.arec.model.adapter.ImagePagerAdapter
 import com.example.arec.databinding.ProfileBinding
 import com.example.arec.model.Event
 import com.example.arec.model.User
@@ -106,7 +106,7 @@ class   Profile : Fragment() {
                                        noMoreUsers()
                                     }
                                     else {
-                                        noMoreUsers()
+                                        MoreUsers()
 
                                         // Update the adapter with the current user data
                                         val images = userList[currentUserIndex].profileImage
