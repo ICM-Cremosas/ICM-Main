@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -176,6 +177,12 @@ class EditProfile : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        val builder = AlertDialog.Builder(requireContext())
+        val view = LayoutInflater.from(requireContext()).inflate(R.layout.progress_bar, null)
+        builder.setView(view)
+        builder.setCancelable(false)
+        val dialog = builder.create()
+        dialog.show()
         if (data != null) {
             if(data.data != null) {
                 val uri = data.data // filePath
@@ -209,15 +216,13 @@ class EditProfile : Fragment() {
                                 }
                             }
                             //Log.e("noob", selectedImageList!!)
+                            dialog.dismiss()
 
                         }
                     }
                     else
                         Toast.makeText(requireContext(), "Couldn't load image try again.", Toast.LENGTH_SHORT).show()
                 }
-
-
-
 
             }
         }

@@ -51,8 +51,7 @@ class Login : Fragment() {
                             if(user!!.phoneNumber.equals(phone)) {
                                 bundleLoginOtp.putString("phone", phone)
                                 exists = true
-                                view.findNavController()
-                                    .navigate(R.id.action_login_to_OTP, bundleLoginOtp)
+                                view.findNavController().navigate(R.id.action_login_to_OTP, bundleLoginOtp)
                             }
                         }
                         if(!exists)

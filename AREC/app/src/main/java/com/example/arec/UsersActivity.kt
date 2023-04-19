@@ -8,7 +8,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.arec.model.adapter.UserAdapter
+import com.example.arec.adapter.UserAdapter
 import com.example.arec.databinding.UsersBinding
 import com.example.arec.model.User
 import com.google.firebase.auth.FirebaseAuth

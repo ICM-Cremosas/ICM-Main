@@ -1,4 +1,4 @@
-package com.example.arec.model.adapter
+package com.example.arec.adapter
 
 import android.content.Context
 import android.view.View
@@ -22,17 +22,10 @@ class ImagePagerAdapter(private val imageUrls: List<String?>, private val contex
             .placeholder(R.drawable.ic_loading)
             .into(imageView)
 
-        // Add padding to the top and bottom of the image to create vertical orientation
-        val paddingPx = convertDpToPixels(context, 16) // 16 dp, adjust as needed
-        imageView.setPadding(0, paddingPx, 0, paddingPx)
 
 
         container.addView(imageView)
         return imageView
-    }
-    private fun convertDpToPixels(context: Context, dp: Int): Int {
-        val scale = context.resources.displayMetrics.density
-        return (dp * scale + 0.5f).toInt()
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {

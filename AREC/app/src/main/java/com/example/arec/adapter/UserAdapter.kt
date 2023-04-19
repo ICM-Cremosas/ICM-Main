@@ -1,4 +1,4 @@
-package com.example.arec.model.adapter
+package com.example.arec.adapter
 
 import android.content.Context
 import android.os.Bundle
