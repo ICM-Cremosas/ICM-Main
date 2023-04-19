@@ -55,7 +55,7 @@
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="811dp"
+                android:layout_height="500dp"
                 android:contentDescription="@string/imagens_de_profile"
                 android:orientation="vertical"
                 android:paddingTop="0dp"

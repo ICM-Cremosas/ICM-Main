@@ -11,10 +11,12 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -110,11 +112,13 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             // remove these after u have the event dabase done
-            val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+            val locationManager =  requireContext().getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
             val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+            Log.e("noob", "0")
             if(location != null) {
                 latLngUser = LatLng(location.latitude, location.longitude)
-
+                Log.e("noob", "1")
 
                 // Example usage in your MapsActivity
                 val icon = BitmapDescriptorFactory.fromBitmap(
@@ -123,8 +127,7 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
                         R.drawable.ic_person_map
                     )
                 )
-                var userMaker =
-                    mMap.addMarker(MarkerOptions().position(latLngUser).title("User").icon(icon))
+                var userMaker = mMap.addMarker(MarkerOptions().position(latLngUser).title("User").icon(icon))
 
                 database!!.reference.child("events")
                     .addValueEventListener(object :
@@ -140,11 +143,13 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
                         override fun onCancelled(error: DatabaseError) {}
 
                     })
+                Log.e("noob", "2s")
                 // Set up the location listener to move the marker
                 val locationListener = object : LocationListener {
                     override fun onLocationChanged(location: Location) {
                         // Update the marker position User from the location of the callback
                         latLngUser = LatLng(location.latitude, location.longitude)
+                        Log.e("noob", "4")
 
                         //clear preivious markers
                         userMaker?.remove()
@@ -168,14 +173,11 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
                     override fun onProviderDisabled(provider: String) {}
                     override fun onStatusChanged(provider: String?, status: Int, extras: Bundle?) {}
                 }
+                Log.e("noob", "3")
 
                 // Request location updates
-                locationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER,
-                    0,
-                    0f,
-                    locationListener
-                )
+                locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0f, locationListener)
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0f, locationListener)
 
                 mMap.setOnMarkerClickListener { clickedMarker ->
                     if ((clickedMarker.tag as String) != "user") {

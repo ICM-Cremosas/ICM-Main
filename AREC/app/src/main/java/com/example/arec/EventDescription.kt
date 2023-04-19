@@ -1,6 +1,7 @@
 package com.example.arec
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -17,6 +18,7 @@ import com.google.firebase.database.ValueEventListener
 
 class EventDescription : Fragment() {
     private lateinit var auth: FirebaseAuth
+    private val participants = mutableListOf<String>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<EventDecriptionBinding>(inflater, R.layout.event_decription,container,false)
         setHasOptionsMenu(true)
@@ -35,7 +37,30 @@ class EventDescription : Fragment() {
                         binding.eventTitle.text = event!!.eventName
                         binding.eventDurationOut.text = event.duration.toString()
                         binding.eventRadiusOut.text = event.radius.toString()
-                        binding.eventParticipantsOut.text = event.participants.size.toString()
+
+                        databaseReference.child("participants").addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                // dataSnapshot will contain the data for the child with the specified ID
+                                if (dataSnapshot.exists()) {
+                                    event.participants.clear()
+                                    // Retrieve the data from the snapshot and perform the desired operations
+                                    for (snapshot1 in snapshot.children) {
+                                        event.participants.add(snapshot1.value.toString())
+                                    }
+
+                                    binding.eventParticipantsOut.text = event.participants.size.toString()
+
+
+                                } else {
+                                    // Child with the specified ID does not exist in the database
+                                }
+                            }
+
+                            override fun onCancelled(databaseError: DatabaseError) {
+                                // Handle any errors that may occur while retrieving the data
+                            }
+                        })
+
                         auth = FirebaseAuth.getInstance()
                         if(event.eventOwner == auth.currentUser!!.uid){
                             binding.deletEvent.setVisibility(View.VISIBLE)

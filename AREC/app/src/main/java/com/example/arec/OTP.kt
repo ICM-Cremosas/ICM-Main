@@ -53,35 +53,33 @@ class OTP : Fragment() {
 
                 override fun onVerificationFailed(p0: FirebaseException) {
                     Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
-                    view?.findNavController()?.navigate(R.id.action_OTP_to_login)
                 }
 
                 override fun onCodeSent(verifyId: String, forceResendingToken: PhoneAuthProvider.ForceResendingToken) {
                     super.onCodeSent(verifyId, forceResendingToken)
                     verificationId = verifyId
 
+                    otpView.setOtpCompletionListener {otp ->
+                        val credential = PhoneAuthProvider.getCredential(verificationId!!, otp)
+                        auth!!.signInWithCredential(credential)
+                            .addOnCompleteListener {task ->
+                                if(task.isSuccessful) {
+                                    if(name != null) {
+                                        addUserToDatabase(name!!,phone,auth.currentUser?.uid!!, age!!, gender!!, show!!,  image!!)
+                                    }
+                                    view?.findNavController()?.navigate(R.id.action_OTP_to_mapsFragment)
+                                    Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                    }
                 }
 
             })          // OnVerificationStateChangedCallbacks
             .build()
 
         PhoneAuthProvider.verifyPhoneNumber(options)
-
-        otpView.setOtpCompletionListener {otp ->
-            val credential = PhoneAuthProvider.getCredential(verificationId!!, otp)
-            auth!!.signInWithCredential(credential)
-                .addOnCompleteListener {task ->
-                    if(task.isSuccessful) {
-                        if(name != null) {
-                            addUserToDatabase(name!!,phone,auth.currentUser?.uid!!, age!!, gender!!, show!!,  image!!)
-                        }
-                        view?.findNavController()?.navigate(R.id.action_OTP_to_mapsFragment)
-                        Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()
-                    }
-                }
-        }
 
         return binding.root
     }

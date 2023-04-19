@@ -32,7 +32,7 @@ class UserAdapter(var context:Context,
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = userList[position]
         holder.binding.username.text = user.name
-        Glide.with(context).load(user.profileImage)
+        Glide.with(context).load(user.profileImage.get(0))
             .placeholder(R.drawable.avatar)
             .into(holder.binding.profile)
         holder.itemView.setOnClickListener {
