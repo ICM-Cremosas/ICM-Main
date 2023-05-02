@@ -16,6 +16,8 @@
             android:layout_marginTop="70dp"
             />
 
+
+
         <EditText
             android:id="@+id/edt_name"
             android:layout_width="match_parent"
@@ -47,11 +49,13 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
             android:text="@string/age_label"
+            android:textColor="@color/black"
             android:textSize="18sp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_below="@id/edt_phone"/>
+
 
         <SeekBar
             android:id="@+id/age_seek_bar"
@@ -72,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
+            android:textColor="@color/black"
             android:text="@string/gender"
             android:textSize="18sp"
             android:layout_marginTop="10dp"
@@ -120,9 +125,25 @@
             android:fontFamily="@font/roboto"
             android:textSize="18sp"
             android:layout_marginTop="10dp"
+            android:textColor="@color/black"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_below="@id/gender_radio_group"/>
+
+        <TextView
+            android:id="@+id/orientation_explanation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gender_radio_group"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/sexualOrientation_label"
+            android:fontFamily="@font/roboto"
+            android:text="What will the app showing when swiping"
+            android:textColor="@color/Light_gray"
+            android:textSize="10sp" />
+
 
         <RadioGroup
             android:id="@+id/sexualOrientation_radio_group"
