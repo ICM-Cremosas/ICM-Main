@@ -48,6 +48,15 @@
             app:layout_constraintVertical_bias="0.058" />
 
 
+        <TextView
+            android:id="@+id/radius"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="12dp"
+            android:text="Radius"
+            app:layout_constraintBottom_toTopOf="@id/event_radius"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <SeekBar
             android:id="@+id/event_radius"
@@ -58,10 +67,21 @@
             android:layout_marginRight="50dp"
             android:progressTint="@color/pink"
             android:thumbTint="@color/pink"
-            android:max="100"
+            android:max="5000"
+            android:min="100"
 
             app:layout_constraintTop_toBottomOf="@id/event_name"
-            android:progress="30" />
+            android:progress="2000" />
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="Duration"
+            android:layout_marginStart="50dp"
+            app:layout_constraintBottom_toTopOf="@id/event_duration"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <SeekBar
             android:id="@+id/event_duration"
@@ -70,6 +90,7 @@
             android:layout_below="@id/event_radius"
             android:layout_marginTop="100dp"
             android:max="100"
+            android:min="1"
             android:progress="30"
             android:progressTint="@color/pink"
             android:layout_marginLeft="50dp"
@@ -78,13 +99,24 @@
             app:layout_constraintTop_toBottomOf="@id/event_radius"
             tools:layout_editor_absoluteX="50dp" />
 
+        <TextView
+            android:id="@+id/participants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Max number of Participants"
+            app:layout_constraintBottom_toTopOf="@id/event_participants"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="50dp"/>
+
         <SeekBar
             android:id="@+id/event_participants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/event_radius"
             android:layout_marginTop="100dp"
-            android:max="100"
+            android:max="200"
+            android:min="1"
             android:progress="30"
             android:progressTint="@color/pink"
             android:layout_marginLeft="50dp"
@@ -114,18 +146,6 @@
             app:layout_constraintTop_toBottomOf="@+id/event_participants"
             app:layout_constraintWidth_percent=".8" />
 
-        <TextView
-            android:id="@+id/radius"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginRight="250dp"
-            android:text="Radius"
-            app:layout_constraintBottom_toTopOf="@id/event_radius"
-            android:layout_marginBottom="10dp"
-            tools:layout_editor_absoluteX="50dp"
-            tools:layout_editor_absoluteY="252dp" />
 
         <TextView
             android:id="@+id/radius_explained"
@@ -133,38 +153,10 @@
             android:layout_height="wrap_content"
             android:text="The radius that your event will be, how distant can a person be to join the event"
             android:textSize="10dp"
-
+            android:layout_marginStart="50dp"
             app:layout_constraintBottom_toTopOf="@id/event_radius"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-
-
-        <TextView
-            android:id="@+id/duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Duration"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginRight="250dp"
-            android:layout_marginBottom="10dp"
-            tools:layout_editor_absoluteX="50dp"
-            app:layout_constraintBottom_toTopOf="@id/event_duration"
-            tools:layout_editor_absoluteY="369dp" />
-
-        <TextView
-            android:id="@+id/participants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Max number of Participants"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginRight="150dp"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toTopOf="@id/event_participants"
-            tools:layout_editor_absoluteX="49dp"
-            tools:layout_editor_absoluteY="482dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
