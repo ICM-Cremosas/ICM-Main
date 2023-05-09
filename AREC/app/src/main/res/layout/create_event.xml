@@ -136,8 +136,6 @@
 
             app:layout_constraintBottom_toTopOf="@id/event_radius"
             app:layout_constraintEnd_toEndOf="parent"
-
-            app:layout_constraintStart_toOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
 
