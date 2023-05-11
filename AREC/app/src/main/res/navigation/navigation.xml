@@ -52,6 +52,11 @@
             app:destination="@id/createEvent"
             app:popUpTo="@id/maps"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_maps_to_listOfEvents"
+            app:destination="@id/listOfEvents"
+            app:popUpTo="@id/maps"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/eventDescription"
@@ -88,6 +93,9 @@
         <action
             android:id="@+id/action_profile_to_login"
             app:destination="@id/login" />
+        <action
+            android:id="@+id/action_profile_to_users"
+            app:destination="@id/users" />
     </fragment>
     <fragment
         android:id="@+id/editProfile"
@@ -136,4 +144,9 @@
             app:popUpTo="@id/chatActivity"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/listOfEvents"
+        android:name="com.example.arec.ListOfEvents"
+        android:label="list_events"
+        tools:layout="@layout/list_events" />
 </navigation>

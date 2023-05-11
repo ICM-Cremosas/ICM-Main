@@ -55,6 +55,10 @@ class MapsActivity : Fragment(), OnMapReadyCallback {
             bundleMapCreate.putParcelable("LatLngUser", latLngUser)
             view.findNavController().navigate(R.id.action_mapsFragment_to_createEvent, bundleMapCreate) }
 
+        binding.butListEvents.setOnClickListener {view : View ->
+            view.findNavController().navigate(R.id.action_maps_to_listOfEvents)
+        }
+
         setHasOptionsMenu(true)
 
         return binding.root

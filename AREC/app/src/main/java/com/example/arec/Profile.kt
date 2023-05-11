@@ -3,10 +3,15 @@ package com.example.arec
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.viewpager.widget.ViewPager
 import com.example.arec.adapter.ImagePagerAdapter
@@ -22,6 +27,8 @@ import com.google.firebase.database.ValueEventListener
 class   Profile : Fragment() {
 
     private lateinit var viewPager: ViewPager
+    private lateinit var dialog: AlertDialog
+    private lateinit var dialog1: AlertDialog
     private lateinit var binding: ProfileBinding
     private lateinit var auth: FirebaseAuth
     private var joinedEvent: Boolean = false
@@ -145,7 +152,27 @@ class   Profile : Fragment() {
                                                         FirebaseDatabase.getInstance().reference.child("users")
                                                             .child(userList[currentUserIndex].uid!!)
                                                     userReference.setValue(userList[currentUserIndex])
-                                                        .addOnSuccessListener {}
+                                                        .addOnSuccessListener {
+                                                            val builder = AlertDialog.Builder(requireContext())
+                                                            val view = LayoutInflater.from(requireContext()).inflate(R.layout.new_match, null)
+                                                            builder.setView(view)
+                                                            builder.setCancelable(false)
+                                                            dialog1 = builder.create()
+                                                            dialog1.show()
+
+                                                            val chatButton = view.findViewById<Button>(R.id.buttonChat)
+                                                            chatButton.setOnClickListener {view : View ->
+                                                                dialog.dismiss()
+                                                                view.findNavController().navigate(R.id.action_profile_to_users)
+                                                            }
+
+                                                            val matchButton = view.findViewById<Button>(R.id.buttonMatch)
+                                                            matchButton.setOnClickListener {
+                                                                dialog.dismiss()
+                                                            }
+                                                        }
+
+
                                                 } else if (!userList[currentUserIndex].likedYou.contains(
                                                         userLogged.uid!!
                                                     )
@@ -256,7 +283,19 @@ class   Profile : Fragment() {
 
     fun noMoreUsers(){
         // Access the root view of the layout
-        binding.noUser.setVisibility(View.VISIBLE)
+        val builder = AlertDialog.Builder(requireContext())
+        val view = LayoutInflater.from(requireContext()).inflate(R.layout.no_users, null)
+        builder.setView(view)
+        builder.setCancelable(false)
+        dialog = builder.create()
+        dialog.show()
+
+        val backButton = view.findViewById<Button>(R.id.back_button)
+        backButton.setOnClickListener {
+            dialog.dismiss()
+            findNavController().popBackStack()
+        }
+
         binding.profileAge.setVisibility(View.GONE)
         binding.butEdit.setVisibility(View.GONE)
         binding.logoutAccount.setVisibility(View.GONE)
@@ -271,6 +310,7 @@ class   Profile : Fragment() {
     fun MoreUsers(){
         // Access the root view of the layout
         binding.noUser.setVisibility(View.GONE)
+        dialog.dismiss()
         binding.profileAge.setVisibility(View.VISIBLE)
         binding.butDislike.setVisibility(View.VISIBLE)
         binding.butLike.setVisibility(View.VISIBLE)
