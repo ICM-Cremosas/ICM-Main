@@ -121,6 +121,9 @@
             app:destination="@id/maps"
             app:popUpTo="@id/login"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_OTP_to_turtorial"
+            app:destination="@id/turtorial" />
     </fragment>
     <fragment
         android:id="@+id/users"
@@ -149,4 +152,12 @@
         android:name="com.example.arec.ListOfEvents"
         android:label="list_events"
         tools:layout="@layout/list_events" />
+    <fragment
+        android:id="@+id/turtorial"
+        android:name="com.example.arec.Turtorial"
+        android:label="Turtorial" >
+        <action
+            android:id="@+id/action_turtorial_to_maps"
+            app:destination="@id/maps" />
+    </fragment>
 </navigation>

@@ -36,12 +36,12 @@ class CreateEvent : Fragment() {
         if (latlng != null){
             //Radius
             binding.eventRadius.progress = radius
-            binding.radius.text = "Radius: $radius Km"
+            binding.radius.text = "Radius: $radius m"
 
             binding.eventRadius.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                 override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                     // Update the TextView with the current progress value
-                    binding.radius.text = "Radius: $progress Km"
+                    binding.radius.text = "Radius: $progress m"
                     radius = progress
                 }
 

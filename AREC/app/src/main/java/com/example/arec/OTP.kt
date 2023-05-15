@@ -66,8 +66,10 @@ class OTP : Fragment() {
                                 if(task.isSuccessful) {
                                     if(name != null) {
                                         addUserToDatabase(name!!,phone,auth.currentUser?.uid!!, age!!, gender!!, show!!,  image!!)
+                                        view?.findNavController()?.navigate(R.id.action_OTP_to_turtorial)
                                     }
-                                    view?.findNavController()?.navigate(R.id.action_OTP_to_mapsFragment)
+                                    else
+                                        view?.findNavController()?.navigate(R.id.action_OTP_to_mapsFragment)
                                     Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
                                 } else {
                                     Toast.makeText(requireContext(), "Failed", Toast.LENGTH_SHORT).show()

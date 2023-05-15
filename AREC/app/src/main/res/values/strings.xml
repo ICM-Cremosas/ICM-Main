@@ -54,5 +54,11 @@
     <string name="everyone">Everyone</string>
     <string name="log_out">Log Out</string>
     <string name="delete_event">Delete Event</string>
+    <string name="how_it_works">How it works</string>
+    <string name="create_tut">To create an event simply press the + button in the bottom right of your screen.</string>
+    <string name="enter_tut">To enter an event select this icon\non the map and join.</string>
+    <string name="enter_event">Enter an event</string>
+    <string name="continue_app">Start using the app!</string>
+    <string name="outro_tut">Another space for a tutorial</string>
 
 </resources>

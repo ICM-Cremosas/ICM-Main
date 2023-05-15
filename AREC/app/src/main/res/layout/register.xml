@@ -140,7 +140,7 @@
             android:layout_marginRight="20dp"
             android:layout_toRightOf="@id/sexualOrientation_label"
             android:fontFamily="@font/roboto"
-            android:text="What will the app showing when swiping"
+            android:text="What will the app show when swiping"
             android:textColor="@color/Light_gray"
             android:textSize="10sp" />
 

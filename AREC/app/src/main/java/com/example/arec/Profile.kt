@@ -160,15 +160,9 @@ class   Profile : Fragment() {
                                                             dialog1 = builder.create()
                                                             dialog1.show()
 
-                                                            val chatButton = view.findViewById<Button>(R.id.buttonChat)
-                                                            chatButton.setOnClickListener {view : View ->
-                                                                dialog.dismiss()
-                                                                view.findNavController().navigate(R.id.action_profile_to_users)
-                                                            }
-
                                                             val matchButton = view.findViewById<Button>(R.id.buttonMatch)
                                                             matchButton.setOnClickListener {
-                                                                dialog.dismiss()
+                                                                dialog1.dismiss()
                                                             }
                                                         }
 
@@ -307,10 +301,15 @@ class   Profile : Fragment() {
         binding.profileGender.setVisibility(View.GONE)
     }
 
-    fun MoreUsers(){
+    fun MoreUsers() {
         // Access the root view of the layout
         binding.noUser.setVisibility(View.GONE)
-        dialog.dismiss()
+
+        // Check if the dialog has been initialized
+        if (::dialog.isInitialized) {
+            dialog.dismiss()
+        }
+
         binding.profileAge.setVisibility(View.VISIBLE)
         binding.butDislike.setVisibility(View.VISIBLE)
         binding.butLike.setVisibility(View.VISIBLE)
