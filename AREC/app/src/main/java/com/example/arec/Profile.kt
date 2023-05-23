@@ -163,6 +163,9 @@ class   Profile : Fragment() {
                                                             val matchButton = view.findViewById<Button>(R.id.buttonMatch)
                                                             matchButton.setOnClickListener {
                                                                 dialog1.dismiss()
+                                                                if(userList.size == 0){
+                                                                    noMoreUsers()
+                                                                }
                                                             }
                                                         }
 
@@ -284,38 +287,20 @@ class   Profile : Fragment() {
         dialog = builder.create()
         dialog.show()
 
+
+
         val backButton = view.findViewById<Button>(R.id.back_button)
         backButton.setOnClickListener {
             dialog.dismiss()
             findNavController().popBackStack()
         }
-
-        binding.profileAge.setVisibility(View.GONE)
-        binding.butEdit.setVisibility(View.GONE)
-        binding.logoutAccount.setVisibility(View.GONE)
-        binding.butDislike.setVisibility(View.GONE)
-        binding.butLike.setVisibility(View.GONE)
-        binding.profileName.setVisibility(View.GONE)
-        binding.viewPager.setVisibility(View.GONE)
-        binding.profileDescription.setVisibility(View.GONE)
-        binding.profileGender.setVisibility(View.GONE)
     }
 
     fun MoreUsers() {
-        // Access the root view of the layout
-        binding.noUser.setVisibility(View.GONE)
 
         // Check if the dialog has been initialized
         if (::dialog.isInitialized) {
             dialog.dismiss()
         }
-
-        binding.profileAge.setVisibility(View.VISIBLE)
-        binding.butDislike.setVisibility(View.VISIBLE)
-        binding.butLike.setVisibility(View.VISIBLE)
-        binding.profileName.setVisibility(View.VISIBLE)
-        binding.viewPager.setVisibility(View.VISIBLE)
-        binding.profileDescription.setVisibility(View.VISIBLE)
-        binding.profileGender.setVisibility(View.VISIBLE)
     }
 }
